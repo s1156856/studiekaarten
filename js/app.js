@@ -37,7 +37,6 @@ const state = {
 };
 
 const el = {
-  mode: document.getElementById("app-mode"),
   category: document.getElementById("home-category"),
   sessionMeta: document.getElementById("session-meta"),
   start: document.getElementById("start-session"),
@@ -196,7 +195,6 @@ function render() {
   renderFocus();
 
   if (state.view === "home") {
-    el.mode.textContent = "Start";
     el.statusLeft.textContent = "Nog geen sessie";
     el.statusRight.textContent = "Cijfer: —";
     el.progress.style.width = "0%";
@@ -219,7 +217,6 @@ function render() {
     const quiz = state.quiz;
     const cijfer = eindcijfer(quiz);
     const tips = aandachtspunten(quiz);
-    el.mode.textContent = "Cijfer";
     el.statusLeft.textContent = "Sessie klaar";
     el.statusRight.textContent = `Cijfer: ${cijfer}`;
     el.progress.style.width = "100%";
@@ -243,7 +240,6 @@ function render() {
   const quiz = state.quiz;
   const number = quiz.target - quiz.queue.length + 1;
   const correct = answered && isCorrect(quiz.queue[0].selected, question.answer);
-  el.mode.textContent = "Sessie";
   el.statusLeft.textContent = `Vraag ${number} van ${quiz.target}`;
   el.statusRight.textContent = `Goed: ${quiz.correct} / ${quiz.answered}`;
   el.progress.style.width = `${Math.round(((number - (answered ? 0 : 1)) / quiz.target) * 100)}%`;

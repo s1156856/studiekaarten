@@ -38,7 +38,7 @@ H7_QUESTIONS.push(...packVragen("H7 Beyond Linearity", "h7x", [
   ["gemiddeld", "abcd", "Nadeel additieve GAM:", ["Geen plot", "Geen X1×X2 tenzij toegevoegd", "Geen CV mogelijk", "Geen Y"], 1],
   ["gemiddeld", "tf", "Local regression voorspelt per x0 een nieuwe lokale fit; dat is duurder dan één globale OLS.", 0],
   ["gemiddeld", "abcd", "Een lineaire spline (graad 1) is:", ["C2-glad", "Continu, knik in de afgeleide bij knots", "Een boom verplicht", "QDA"], 1],
-  ["gemiddeld", "abcd", "ISLP-les: start vaak", ["Met deep net", "Met plots + eenvoudige niet-lineariteit, dan splines/GAM", "Met Bonferroni", "Met Cox"], 1],
+  ["gemiddeld", "abcd", "Wat is vaak een verstandige eerste stap bij een mogelijk niet-lineair verband?", ["Direct met een diep netwerk beginnen", "Plotten en daarna eenvoudige niet-lineaire modellen proberen", "Beginnen met Bonferroni", "Beginnen met een Cox-model"], 1],
   ["gemiddeld", "tf", "Een rechte lijn is een spline zonder knots / oneindige λ-limiet.", 0],
 
   ["moeilijk", "abcd", "Een cubic spline met K knots (geen natural) heeft ruwweg:", ["4+K parameters (plus conventies)", "K alleen", "n parameters altijd", "p²"], 0],
@@ -121,7 +121,7 @@ H8_QUESTIONS.push(...packVragen("H8 Trees", "h8x", [
   ["moeilijk", "abcd", "Stacking zou:", ["Alleen bagging zijn", "Meta-leren op outputs van meerdere modellen", "Y wissen", "Knots zijn"], 1],
   ["moeilijk", "tf", "Prune-parameter α kies je met CV, net als λ.", 0],
   ["moeilijk", "abcd", "Multiclass bomen:", ["Onmogelijk", "Splitsen op impurity over k klassen", "Vereisen SVM", "Vereisen Cox"], 1],
-  ["moeilijk", "abcd", "ISLP-lijn: start met", ["Alleen XGBoost zonder basis", "Eén boom begrijpen, dan bagging/RF/boosting vergelijken via CV", "Alleen Gini zonder test", "Geen OOB"], 1],
+  ["moeilijk", "abcd", "Hoe bouw je begrip op van boom-ensembles?", ["Alleen XGBoost gebruiken zonder basis", "Eerst één boom begrijpen en daarna ensembles vergelijken met validatie", "Alleen Gini berekenen zonder evaluatie", "Out-of-bag-evaluatie vermijden"], 1],
   ["moeilijk", "tf", "Een stomp-boosting (veel stumps) is een additief model in split-features.", 0],
   ["moeilijk", "abcd", "Correlatie tussen RF-bomen daalt door:", ["mtry=p", "mtry klein + bootstrap", "Diepte 1 verplicht altijd slechter", "Geen OOB"], 1],
   ["moeilijk", "abcd", "H8 vs lineaire modellen: bomen", ["Hebben β-SE’s standaard", "Hebben geen natuurlijke p-waarden; belang via importance/CV", "Zijn GLM", "Zijn PCA"], 1],
@@ -168,7 +168,7 @@ H9_QUESTIONS.push(...packVragen("H9 SVM", "h9x", [
   ["gemiddeld", "abcd", "Lineaire scheidbaarheid in φ-ruimte betekent:", ["Ook in inputruimte lineair", "Een niet-lineaire grens in X mogelijk", "Y continu", "p=1"], 1],
   ["gemiddeld", "tf", "Support vector machines heten zo omdat de fit op weinig punten steunt.", 0],
   ["gemiddeld", "abcd", "Computatie RBF op n=10^6:", ["Triviaal dichte n×n K", "Lastig; approximaties / lineaire SVM / subsamples", "Gelijk aan OLS p=2", "KM"], 1],
-  ["gemiddeld", "abcd", "ISLP-vergelijking SVM vs LDA/logistic:", ["SVM wint altijd", "Hangt van n, p, scheiding; CV beslist", "LDA verboden", "Geen overlap"], 1],
+  ["gemiddeld", "abcd", "Waarvan hangt de keuze tussen SVM, LDA en logistische regressie onder meer af?", ["SVM wint altijd", "Steekproefgrootte, aantal kenmerken en klassenscheiding; vergelijk met validatie", "LDA is verboden", "De methoden overlappen niet"], 1],
   ["gemiddeld", "tf", "Een constante in de kernel (bias in feature space) is niet hetzelfde als C.", 0],
 
   ["moeilijk", "abcd", "Primal SVM is convex; dat betekent:", ["Lokale minima overal", "Globaal optimum (voor het standaardprobleem)", "Greedy CART", "K-means lokale pits"], 1],
@@ -188,7 +188,7 @@ H9_QUESTIONS.push(...packVragen("H9 SVM", "h9x", [
   ["moeilijk", "abcd", "Slack in de primal ↔", ["Negatieve α", "Box-constraint 0≤αi≤C in de dual", "Knots", "Folds=C"], 1],
   ["moeilijk", "abcd", "Een lineaire kernel met C-tune is verwant aan:", ["Onbestrafte OLS", "L2-gestrafte lineaire classifier", "K-means", "KM"], 1],
   ["moeilijk", "tf", "Feature-schaling per kolom hoort in de CV-pipeline, niet op heel X+test.", 0],
-  ["moeilijk", "abcd", "H9 in ISLP koppelt:", ["Alleen deep nets", "Hypervlakken, slack, kernels als flexible classifiers", "Alleen survival", "Alleen testing"], 1],
+  ["moeilijk", "abcd", "Welke begrippen horen bij een flexibele SVM-classifier?", ["Alleen diepe netwerken", "Scheidingsvlakken, slack en kernels", "Alleen overlevingsanalyse", "Alleen multiple testing"], 1],
   ["moeilijk", "abcd", "Als alle punten support vector zijn:", ["Harde, ruime margin", "Zeer soft / ruis of te complexe kernel", "ε=0", "p=0"], 1],
   ["moeilijk", "tf", "C↓ is analoger aan meer regularisatie, C↑ aan minder.", 0],
 ]));
@@ -208,7 +208,7 @@ H10_QUESTIONS.push(...packVragen("H10 Deep Learning", "h10x", [
   ["basis", "tf", "Weight decay is L2-straf op gewichten, verwant aan ridge.", 0],
   ["basis", "abcd", "Pooling in CNN:", ["Vergroot resolutie altijd", "Verkleint feature maps, wat translatie-ruis dempt", "Is dropout op Y", "Is Cox"], 1],
   ["basis", "abcd", "Xavier/He init voorkomt:", ["Mini-batches", "Te gekke startschalen van activaties", "Dat Y bestaat", "Folds"], 1],
-  ["basis", "tf", "Deep learning in ISLP is een praktisch hoofdstuk, geen puur bewijsboek.", 0],
+  ["basis", "tf", "Deep learning kun je praktisch leren door modellen toe te passen en te evalueren.", 0],
   ["basis", "abcd", "Een hidden layer zonder niet-lineariteit:", ["Blijft diep expressief", "Stort in één lineaire map", "Is een RF", "Is GAM verplicht"], 1],
   ["basis", "abcd", "Softmax outputs:", ["Negatieve kansen", "Kansen die tot 1 sommen", "RSS", "VIF"], 1],
   ["basis", "tf", "GPU’s helpen omdat matrixvermenigvuldigingen parallel gaan.", 0],
@@ -232,7 +232,7 @@ H10_QUESTIONS.push(...packVragen("H10 Deep Learning", "h10x", [
   ["gemiddeld", "abcd", "Class imbalance in nets:", ["Negeer altijd", "Gewichten / resampling / andere drempel", "Zet softmax uit", "Zet n=p"], 1],
   ["gemiddeld", "abcd", "Embedding-laag zet:", ["Afbeeldingen in Cox", "Discrete tokens om naar vectoren", "Y in VIF", "Folds in λ"], 1],
   ["gemiddeld", "tf", "Double descent: extreem overgeparametrizeerde nets kunnen weer beter generaliseren — advanced t.o.v. klassieke U-curve.", 0],
-  ["gemiddeld", "abcd", "ISLP-waarschuwing: nets", ["Vervangen altijd GLM", "Vragen data, compute en zorgvuldige validatie", "Hebben geen hyperparameters", "Zijn lin. SVM"], 1],
+  ["gemiddeld", "abcd", "Waar moet je rekening mee houden bij neurale netwerken?", ["Ze vervangen altijd GLM's", "Ze vragen voldoende data, rekenkracht en zorgvuldige validatie", "Ze hebben geen hyperparameters", "Ze zijn hetzelfde als lineaire SVM's"], 1],
   ["gemiddeld", "abcd", "Activation sigmoid in diepe hidden layers:", ["Is de moderne default", "Verzadigt; ReLU/varianten populairder", "Is Gini", "Is bagging"], 1],
   ["gemiddeld", "tf", "Mini-batch ruis kan ontsnappen aan scherpe minima, naast compute-winst.", 0],
 
@@ -255,7 +255,7 @@ H10_QUESTIONS.push(...packVragen("H10 Deep Learning", "h10x", [
   ["moeilijk", "tf", "Softmax + CE is numeriek stabieler in log-domain (log-softmax) dan naïef exp.", 0],
   ["moeilijk", "abcd", "Capacity verhogen (meer lagen) zonder data/reg:", ["Verlaagt testfout altijd", "Verhoogt overfit-risico", "Zet Bayes error 0", "Verwijdert ε"], 1],
   ["moeilijk", "abcd", "Een freeze van early CNN-lagen bij weinig data:", ["Gooit pretrained features weg", "Behoudt generieke filters, leert kop", "Is bagging", "Is KM"], 1],
-  ["moeilijk", "tf", "ISLP koppelt DL terug aan statistical learning: Ŷ≈f(X), maar f is een diep net.", 0],
+  ["moeilijk", "tf", "Een diep neuraal netwerk is een flexibele manier om de functie f in Ŷ ≈ f(X) te schatten.", 0],
 ]));
 
 H11_QUESTIONS.push(...packVragen("H11 Survival", "h11x", [
@@ -278,7 +278,7 @@ H11_QUESTIONS.push(...packVragen("H11 Survival", "h11x", [
   ["basis", "tf", "Hazard ratio >1 betekent hoger eventrisico (bij Cox, gegeven de rest).", 0],
   ["basis", "abcd", "Waarom niet OLS op T?", ["T is altijd normaal", "Censoring en scheve T; OLS negeert δ", "p=0", "Geen X"], 1],
   ["basis", "abcd", "At risk set op t is:", ["Iedereen in de testdata", "Wie tot t overleefde en onder observatie is", "Alleen events na t", "Alleen PCs"], 1],
-  ["basis", "tf", "ISLP behandelt survival omdat veel biomedische data censureren.", 0],
+  ["basis", "tf", "Overlevingsanalyse is nuttig wanneer gebeurtenissen niet voor iedereen tijdens de studie worden waargenomen.", 0],
 
   ["gemiddeld", "abcd", "KM-spronggrootte hangt af van:", ["Alleen n totaal", "Events / aantal at risk op dat tijdstip", "VIF", "mtry"], 1],
   ["gemiddeld", "tf", "Greenwood-formule geeft SE’s voor KM.", 0],
@@ -319,7 +319,7 @@ H11_QUESTIONS.push(...packVragen("H11 Survival", "h11x", [
   ["moeilijk", "abcd", "Rapportage Cox hoort te noemen:", ["Alleen training C=1", "HR, CI, PH-check, follow-up/censoring", "Alleen mtry", "Alleen γ"], 1],
   ["moeilijk", "tf", "Independent censoring gegeven X is een aanname, geen automatisme.", 0],
   ["moeilijk", "abcd", "Als iedereen tot dezelfde administratieve datum gevolgd wordt, is dat:", ["Left truncation", "Administratieve right censoring", "Interval altijd", "Competing risk verplicht"], 1],
-  ["moeilijk", "abcd", "ISLP-les bij survival:", ["Negeer censoring, gemiddelde T is genoeg", "Gebruik KM/Cox i.p.v. naïeve averages van T", "Behandel δ altijd als 1", "Gebruik alleen OLS op T"], 1],
+  ["moeilijk", "abcd", "Hoe analyseer je overlevingstijden met gecensureerde observaties?", ["Negeer censoring en gebruik alleen het gemiddelde", "Gebruik methoden zoals Kaplan–Meier of Cox-regressie", "Behandel de censorindicator altijd als 1", "Gebruik alleen OLS op de tijd"], 1],
   ["moeilijk", "tf", "S(t)=exp(−Λ(t)) met Λ de cumulatieve hazard.", 0],
 ]));
 
@@ -336,7 +336,7 @@ H12_QUESTIONS.push(...packVragen("H12 Unsupervised", "h12x", [
   ["basis", "abcd", "Hierarchisch clusteren levert:", ["Eén k verplicht", "Een dendrogram; k kies je door te knippen", "Alleen PCs als Y", "Softmax"], 1],
   ["basis", "tf", "Complete linkage gebruikt de maximale afstand tussen groepen.", 0],
   ["basis", "abcd", "Single linkage is berucht om:", ["Compacte bolletjes altijd", "Chaining (lange slierten)", "SVM margin", "PH"], 1],
-  ["basis", "abcd", "NCI60 in ISLP illustreert:", ["Lage p", "Genen: hoge p, clustering/PCA op weefsels", "Alleen loon", "Alleen beurs"], 1],
+  ["basis", "abcd", "Een genexpressiedataset met veel genen en weinig observaties illustreert:", ["Lage dimensionaliteit", "Hoge dimensionaliteit en mogelijke PCA of clustering", "Alleen loondata", "Alleen beurskoersen"], 1],
   ["basis", "tf", "Unsupervised resultaten zijn lastiger te ‘toetsen’ dan supervised test MSE.", 0],
   ["basis", "abcd", "Euclidische afstand na niet-schalen wordt gedomineerd door:", ["Alle X gelijk", "Variabelen met grote schaal", "Y", "C"], 1],
   ["basis", "abcd", "Het eerste PC is:", ["De kleinste variantie", "De lineaire combinatie met meeste variantie", "De lasso-pad", "De hazard"], 1],
@@ -363,7 +363,7 @@ H12_QUESTIONS.push(...packVragen("H12 Unsupervised", "h12x", [
   ["gemiddeld", "abcd", "Eerste PCs als regressors is PCR; dat is", ["Unsupervised stap + supervised stap", "Puud unsupervised einde", "Survival", "Boosting"], 0],
   ["gemiddeld", "tf", "PVE hoog op PC1 betekent niet dat PC1 Y voorspelt.", 0],
   ["gemiddeld", "abcd", "Standardisatie met sd=0 kolom:", ["Prima in correlatiematrix", "Constante kolom droppen", "Zet k=n", "Zet PVE=1"], 1],
-  ["gemiddeld", "abcd", "ISLP: interpreteer PCA via", ["Alleen scores zonder namen", "Loadings: welke X’en de as maken", "Alleen k", "Alleen hinge"], 1],
+  ["gemiddeld", "abcd", "Hoe interpreteer je een principale component inhoudelijk?", ["Alleen de scores bekijken", "De loadings bekijken om te zien welke variabelen de as bepalen", "Alleen k bekijken", "Alleen hinge loss bekijken"], 1],
   ["gemiddeld", "tf", "K-means kan bolvormige clusters splitsen als k te groot is.", 0],
 
   ["moeilijk", "abcd", "De reconstruction error van PCA met M componenten is:", ["De som van weggelaten eigenwaarden (Frobenius)", "Gini", "C-index", "Hinge"], 0],
@@ -381,7 +381,7 @@ H12_QUESTIONS.push(...packVragen("H12 Unsupervised", "h12x", [
   ["moeilijk", "abcd", "H12 vs H2: zonder Y is ‘fout’", ["MSE op testdata standaard", "Niet uniek; je beoordeelt bruikbaarheid/stabiliteit", "Altijd AUC", "Altijd HR"], 1],
   ["moeilijk", "tf", "PCA op covariantie vs correlatie is het schaalvraagstuk.", 0],
   ["moeilijk", "abcd", "Een goed rapport van k-means noemt:", ["Alleen één random seed-run", "k-keuze, schaling, herstarts, eventueel silhouette", "Alleen n", "Alleen C"], 1],
-  ["moeilijk", "abcd", "ISLP-boodschap:", ["Unsupervised vervangt supervised", "Exploratie: reduceer, groepeer, plot, wees nuchter", "Altijd k=3", "Nooit schalen"], 1],
+  ["moeilijk", "abcd", "Wat is een nuchtere aanpak voor onbegeleide analyse?", ["Onbegeleid leren vervangt altijd begeleid leren", "Verklein dimensies, groepeer en visualiseer; interpreteer voorzichtig", "Kies altijd k=3", "Schaal variabelen nooit"], 1],
   ["moeilijk", "tf", "Hiërarchisch op n groot is O(n²) geheugen/tijd; k-means schaalt beter.", 0],
   ["moeilijk", "abcd", "Als je labels later wél hebt, kun je clusters", ["Niet meer aankijken", "Extern valideren (ARI, purity) — dat is geen unsupervised learning meer tijdens fit", "Als loadings gebruiken", "Als knots"], 1],
   ["moeilijk", "abcd", "Zero-mean kolommen vóór PCA:", ["Optioneel esthetisch", "Standaard (anders kan PC1 het gemiddelde vangen)", "Verboden", "Zet PVE negatief"], 1],
@@ -408,7 +408,7 @@ H13_QUESTIONS.push(...packVragen("H13 Multiple Testing", "h13x", [
   ["basis", "tf", "Een p-waarde is geen P(H0 waar | data).", 0],
   ["basis", "abcd", "False discovery: je roept een effect", ["Dat waar is", "Dat er niet is", "Dat censored is", "Dat een PC is"], 1],
   ["basis", "abcd", "Zonder Ha-signalen is FDR-controle:", ["Onnodig want m=1", "Nog steeds nodig; bijna alles wat je ‘vindt’ is vals", "Gelijk aan R²=1", "Gelijk aan PVE"], 1],
-  ["basis", "tf", "ISLP H13 bestaat omdat moderne data veel hypotheses tegelijk toetsen.", 0],
+  ["basis", "tf", "Moderne datasets kunnen veel hypotheses tegelijk toetsen.", 0],
 
   ["gemiddeld", "abcd", "Bonferroni garandeert FWER≤α", ["Alleen bij onafhankelijkheid", "Ook bij afhankelijkheid (ongelijkheid van Bonferroni)", "Nooit", "Alleen bij Y continu"], 1],
   ["gemiddeld", "tf", "BH bewijst FDR-controle bij onafhankelijkheid / PRDS-positieve afhankelijkheid.", 0],
@@ -443,12 +443,12 @@ H13_QUESTIONS.push(...packVragen("H13 Multiple Testing", "h13x", [
   ["moeilijk", "abcd", "Dependent tests (zelfde samples, overlappende genen):", ["m telt niet", "m telt wél; dependence verandert de procedurekeuze", "FDR bestaat niet", "α=1"], 1],
   ["moeilijk", "tf", "Een Bonferroni-significante hit is ook BH-significant (BH is liberaler).", 0],
   ["moeilijk", "abcd", "Reporteren van de kleinste raw p alleen:", ["Vervangt m", "Verbergt de family; misleidend", "Is q-value", "Is PVE"], 1],
-  ["moeilijk", "abcd", "H13 sluit ISLP af omdat:", ["Testing onbelangrijk is", "High-throughput claims zonder correctie waardeloos zijn", "PCA verboden is", "Y altijd continu is"], 1],
+  ["moeilijk", "abcd", "Waarom is correctie belangrijk bij high-throughput onderzoek?", ["Toetsen zijn onbelangrijk", "Veel claims zonder correctie geven veel toevallige ontdekkingen", "PCA is verboden", "De uitkomst Y is altijd continu"], 1],
   ["moeilijk", "tf", "Effect size + interval blijven nodig; significant ≠ groot.", 0],
   ["moeilijk", "abcd", "Als je 20 toetsen doet en één p=0.04 toont:", ["Die is FWER-proof bij α=0.05 Bonferroni", "Die overleeft Bonferroni niet (0.05/20)", "FDR is 0", "m=1"], 1],
   ["moeilijk", "abcd", "Pre-filteren van toetsen (bijv. variance filter genen) vóór m:", ["Mag stiekem op Y", "Moet onafhankelijk van de toetsstatistiek of in het plan", "Zet FDR=0", "Zet FWER=1"], 1],
   ["moeilijk", "tf", "De ‘familie’ is een wetenschappelijke keuze: wat claim je tegelijk?", 0],
-  ["moeilijk", "abcd", "ISLP-praktijk: noem", ["Alleen Python-versie", "m, procedure (BH/Holm/…), α of FDR-niveau", "Alleen hidden layers", "Alleen mtry"], 1],
+  ["moeilijk", "abcd", "Wat rapporteer je bij multiple testing?", ["Alleen de Python-versie", "Aantal toetsen, correctiemethode en gekozen α- of FDR-niveau", "Alleen het aantal verborgen lagen", "Alleen mtry"], 1],
   ["moeilijk", "abcd", "Zonder correctie, m=1000, α=0.05, pure H0: verwachte valse hits ≈", ["0.05", "50", "1000", "1"], 1],
   ["moeilijk", "tf", "Multiple testing is de statistische versie van ‘als je maar lang zoekt, vind je toeval’.", 0],
 ]));

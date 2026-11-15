@@ -34,7 +34,7 @@ const H5_QUESTIONS = packVragen("H5 Resampling", "h5", [
   ["gemiddeld", "abcd", "Bootstrap is géén:", ["Herschikken mét teruglegging", "Exacte nieuwe populatiesteekproef uit de echte wereld", "Hulpmiddel voor SE", "Basis van bagging"], 1],
   ["gemiddeld", "abcd", "Tijdreeks: gewone k-fold:", ["Is altijd prima", "Kan lekkage geven; je hebt rolling/blocked CV nodig", "Is Cox", "Is softmax"], 1],
   ["gemiddeld", "tf", "Meer folds ⇒ elke fit gebruikt meer data (minder bias, meer overlap/variantie).", 0],
-  ["gemiddeld", "abcd", "Het doel van H5 in ISLP is vooral:", ["Nieuwe classifiers uitvinden", "Hoe goed een methode generaliseert, schatten", "Alleen dummy’s", "Alleen CNN"], 1],
+  ["gemiddeld", "abcd", "Wat is het doel van resamplingmethoden?", ["Nieuwe classifiers uitvinden", "Schatten hoe goed een methode generaliseert", "Alleen dummyvariabelen maken", "Alleen convolutionele netwerken trainen"], 1],
   ["gemiddeld", "abcd", "Leave-one-out bij n=200 betekent:", ["200 trainingsets van 199 punten", "2 folds", "p folds", "Geen Y"], 0],
   ["gemiddeld", "tf", "CV kan voor regressie MSE gebruiken en voor classificatiefout een 0-1 loss.", 0],
   ["gemiddeld", "abcd", "Waarom validation set soms tóch:", ["Geen computer", "Eenvoud en snelheid bij grote n", "Het is LDA", "Het verbiedt testsets"], 1],
@@ -60,7 +60,7 @@ const H5_QUESTIONS = packVragen("H5 Resampling", "h5", [
   ["moeilijk", "tf", "Doel: expected test error van het algoritme, niet de trainingRSS.", 0],
   ["moeilijk", "abcd", "k-fold met k=n vs k=5: rekentijd ruwweg:", ["Gelijk", "LOOCV ~ n keer duurder dan 5-fold (tenzij shortcut)", "5-fold n keer duurder", "Onafhankelijk van n"], 1],
   ["moeilijk", "abcd", "Resampling vervangt géén:", ["SE-schatting", "Echte externe testdata uit een nieuwe populatie", "Modelkeuze-hulp", "Onzekerheid"], 1],
-  ["moeilijk", "tf", "In ISLP-lab H5 oefen je validation set, CV en bootstrap in Python.", 0],
+  ["moeilijk", "tf", "Met programmeeroefeningen kun je validation sets, cross-validation en bootstrap toepassen.", 0],
 ]);
 
 const H6_QUESTIONS = packVragen("H6 Regularization", "h6", [
@@ -125,7 +125,7 @@ const H6_QUESTIONS = packVragen("H6 Regularization", "h6", [
   ["moeilijk", "tf", "AIC is eerder gericht op prediction; BIC op het vinden van een ‘waar’ spaarzaam model.", 0],
   ["moeilijk", "abcd", "Een λ=0 ridge is:", ["Lasso", "Ordinary least squares (als het bestaat)", "PCA", "K-means"], 1],
   ["moeilijk", "abcd", "Subset methods vs shrinkage: shrinkage:", ["Gooit variabelen hard weg of houdt ze", "Kan continu krimpen i.p.v. 0/1-keuze (ridge)", "Is alleen Gini", "Is alleen KM"], 1],
-  ["moeilijk", "tf", "In ISLP-lab H6 oefen je subset, ridge, lasso, PCR, PLS.", 0],
+  ["moeilijk", "tf", "Subsetselectie, ridge, lasso, PCR en PLS zijn methoden die je kunt vergelijken met validatie.", 0],
 ]);
 
 const H7_QUESTIONS = packVragen("H7 Beyond Linearity", "h7", [
@@ -184,7 +184,7 @@ const H7_QUESTIONS = packVragen("H7 Beyond Linearity", "h7", [
   ["moeilijk", "tf", "Een interactie-term X1X2 is een eenvoudige niet-additieve uitbreiding.", 0],
   ["moeilijk", "abcd", "Overcomplete splinebasis zonder penalty:", ["Stabiel", "Multicollinear / wild", "Gelijk aan LDA", "Gelijk aan FWER"], 1],
   ["moeilijk", "abcd", "Effective df > 1 bij een smooth:", ["Het effect is niet strikt lineair", "n=1", "p>n verplicht", "C=0"], 0],
-  ["moeilijk", "tf", "ISLP toont dat lineaire modellen via basis-expansie niet-lineaire f kunnen benaderen.", 0],
+  ["moeilijk", "tf", "Met basisexpansies kunnen lineaire modellen niet-lineaire functies benaderen.", 0],
   ["moeilijk", "abcd", "Vergelijk polynomial graad 4 vs cubic spline met paar knots:", ["Spline controleert lokaliteit beter", "Polynoom is altijd GAM-optimaal", "Beide zijn QDA", "Beide FWER"], 0],
   ["moeilijk", "abcd", "backfitting convergeert onder:", ["Additieve identificatie (centreren van fj’s)", "p>n without penalty", "Geen ε", "Censoring verplicht"], 0],
   ["moeilijk", "tf", "Step function is een spline van graad 0.", 0],
@@ -246,7 +246,7 @@ const H8_QUESTIONS = packVragen("H8 Trees", "h8", [
   ["moeilijk", "tf", "Correlated features: importance wordt gedeeld / instabiel.", 0],
   ["moeilijk", "abcd", "Extra-trees / extremely randomized:", ["Randomere splits, extra variantiereductie", "Is exact CART", "Is Bonferroni", "Is logit"], 0],
   ["moeilijk", "abcd", "Waarom trees slecht extrapoleren:", ["Constante in bladeren buiten train-X-range", "Ze zijn lineair in X", "Ze zijn Cox", "Ze zijn PCA"], 0],
-  ["moeilijk", "tf", "ISLP H8: van enkele boom naar bagging, RF, boosting, BART.", 0],
+  ["moeilijk", "tf", "Vanuit één beslissingsboom kun je uitbreiden naar bagging, random forests, boosting en BART.", 0],
   ["moeilijk", "abcd", "De cost-complexity criterion is:", ["RSS(T) + α|T| (bladeren)", "Alleen AUC", "Alleen λ ridge op β", "FDR"], 0],
   ["moeilijk", "abcd", "Gradient boosting voor least squares:", ["Elke boom op residuals", "Elke boom op Y opnieuw alsof bagging", "Alleen op PCA", "Alleen op C"], 0],
   ["moeilijk", "tf", "Een RF-voorspelling is het gemiddelde (reg) of stem (clf) van bomen.", 0],

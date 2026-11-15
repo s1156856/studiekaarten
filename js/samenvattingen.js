@@ -1,4 +1,68 @@
 const SAMENVATTING_TERM_TRANSLATIONS = [
+  ["trainingsdata", "training data"],
+  ["voorspellers", "predictors"],
+  ["irreducibele ruis", "irreducible noise"],
+  ["t-toetsen", "t-tests"],
+  ["f-toets", "F-test"],
+  ["hoofdeffecten", "main effects"],
+  ["hoofdeffect", "main effect"],
+  ["meervoudige toetsing", "multiple testing"],
+  ["overlevingsanalyse", "survival analysis"],
+  ["Type I-fout", "Type I error"],
+  ["Type II-fout", "Type II error"],
+  ["betrouwbaarheidsinterval", "confidence interval"],
+  ["voorspellingsinterval", "prediction interval"],
+  ["interactieterm", "interaction term"],
+  ["referentiecategorie", "reference category"],
+  ["indicatorvariabelen", "indicator variables"],
+  ["multicollineariteit", "multicollinearity"],
+  ["teltabel", "frequency table"],
+  ["uitvoerbuffer", "output buffer"],
+  ["deel-sortering", "digit sort"],
+  ["power", "statistical power"],
+  ["false positives", "false positives"],
+  ["vals-positieven", "false positives"],
+  ["parameterkeuze", "hyperparameter tuning"],
+  ["lokale regressie", "local regression"],
+  ["dimensiereductie", "dimensionality reduction"],
+  ["verklaarde variantie", "explained variance"],
+  ["referentie", "reference"],
+  ["toetsen", "tests"],
+  ["censoring", "censoring"],
+  ["gecensureerd", "censored"],
+  ["snoeien", "pruning"],
+  ["practica", "practical labs"],
+  ["vermogens", "power"],
+  ["rekenkracht", "computational power"],
+  ["vermogensverlies", "power loss"],
+  ["foutkosten", "misclassification costs"],
+  ["gevoeligheid", "sensitivity"],
+  ["specificiteit", "specificity"],
+  ["kalibratie", "calibration"],
+  ["kansschatting", "probability estimate"],
+  ["kansdrempel", "classification threshold"],
+  ["signaalruis", "signal-to-noise"],
+  ["onverklaarde ruis", "irreducible noise"],
+  ["vermijdbare fout", "reducible error"],
+  ["parametrisch model", "parametric model"],
+  ["niet-parametrisch model", "non-parametric model"],
+  ["high-dimensional data", "high-dimensional data"],
+  ["hoge dimensionaliteit", "high dimensionality"],
+  ["uitvoerlaag", "output layer"],
+  ["verliesfunctie", "loss function"],
+  ["resamplingmethoden", "resampling methods"],
+  ["validatiedata", "validation data"],
+  ["sleutelbereik", "key range"],
+  ["gehele sleutels", "integer keys"],
+  ["stabiele sortering", "stable sort"],
+  ["volgorde van gelijke sleutels", "relative order of equal keys"],
+  ["cijfer voor cijfer", "digit by digit"],
+  ["familie van toetsen", "family of tests"],
+  ["foutpercentage", "error rate"],
+  ["modelcomplexiteit", "model complexity"],
+  ["overlevingskans", "survival probability"],
+  ["hazard ratio", "hazard ratio"],
+  ["instantane event-rate", "instantaneous event rate"],
   ["sorteeralgoritmen", "sorting algorithms"],
   ["invoegsortering", "insertion sort"],
   ["selectiesortering", "selection sort"],
@@ -34,7 +98,6 @@ const SAMENVATTING_TERM_TRANSLATIONS = [
   ["generaliseren", "generalize"],
   ["variabelenselectie", "feature selection"],
   ["kenmerkselectie", "feature selection"],
-  ["steekproeven met teruglegging", "sampling with replacement"],
   ["constante factoren", "constant factors"],
   ["onderaanpassing", "underfitting"],
   ["overaanpassing", "overfitting"],
@@ -79,15 +142,11 @@ const SAMENVATTING_TERM_TRANSLATIONS = [
   ["singuliere-waarde-ontbinding", "singular value decomposition"],
   ["principale-componentenanalyse", "principal component analysis"],
   ["steekproeven met teruglegging", "sampling with replacement"],
-  ["gemiddelde kwadratische fout", "mean squared error"],
   ["logistische regressie", "logistic regression"],
   ["lineaire regressie", "linear regression"],
-  ["dimensiereductie", "dimensionality reduction"],
   ["significantietoets", "significance test"],
   ["achterwaartse propagatie", "backpropagation"],
   ["gradiëntafdaling", "gradient descent"],
-  ["variabelenselectie", "feature selection"],
-  ["kenmerkselectie", "feature selection"],
   ["activatiefuncties", "activation functions"],
   ["verborgen lagen", "hidden layers"],
   ["prioriteitswachtrijen", "priority queues"],
@@ -103,16 +162,12 @@ const SAMENVATTING_TERM_TRANSLATIONS = [
   ["statistisch leren", "statistical learning"],
   ["classificatie", "classification"],
   ["regressie", "regression"],
-  ["onderaanpassing", "underfitting"],
-  ["overaanpassing", "overfitting"],
   ["residu", "residual"],
   ["matrixaanvulling", "matrix completion"],
   ["diep leren", "deep learning"],
   ["invoerlaag", "input layer"],
-  ["uitvoerlaag", "output layer"],
   ["gewichten", "weights"],
   ["knoop", "node"],
-  ["gebalanceerd", "balanced"],
   ["prioriteitswachtrij", "priority queue"],
   ["lagere-orde termen", "lower-order terms"],
   ["waarom sorteren", "why sorting"],
@@ -149,16 +204,20 @@ const SAMENVATTINGEN = {
     titel: "Data Science & Machine Learning",
     hoofdstukken: [
       {
-        titel: "Statistisch leren",
+        titel: "Statistical Learning",
         kern: ["Prediction", "Inference", "Y = f(X) + ε"],
+        visual: { label: "Model", formula: "Y = f(X) + ε", note: "f(X) verklaart een deel; ε is de onverklaarde fout." },
         tekst: [
           "Statistisch leren gebruikt gegevens om verbanden te onderzoeken en uitkomsten te voorspellen.",
           "Er zijn twee doelen: voorspellen en verklaren. Bij voorspellen wil je een zo nauwkeurig mogelijke Ŷ; bij verklaren onderzoek je hoe en hoeveel X met Y samenhangt.",
           "Het model Y = f(X) + ε zegt: de uitkomst Y bestaat uit een deel dat samenhangt met invoer X, plus ε: variatie die het model niet verklaart.",
+          "Een parametrisch model legt vooraf een vorm vast voor f; een niet-parametrisch model laat de vorm flexibeler uit de data volgen. De voorspellingsfout bestaat uit een vermijdbaar deel en irreducibele ruis.",
+          "De Bayes-classifier kiest de klasse met de grootste kans gegeven X. De Bayes error is de laagste fout die mogelijk is door overlap en ruis in de data. Bij hoge dimensionaliteit (veel kenmerken ten opzichte van het aantal observaties) is overfitting extra belangrijk om te bewaken.",
+          "n is het aantal observaties en p het aantal voorspellers. Fit op trainingsdata, kies instellingen op validatiedata en gebruik onafhankelijke testdata pas voor de eindbeoordeling.",
         ],
       },
       {
-        titel: "Begeleid leren",
+        titel: "Supervised Learning",
         kern: ["Supervised", "Regressie", "Classificatie"],
         tekst: [
           "Bij begeleid leren krijgt het model voorbeelden met zowel invoer als het juiste antwoord. Het leert antwoorden voor nieuwe invoer voorspellen.",
@@ -167,84 +226,127 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Onbegeleid leren",
+        titel: "Unsupervised Learning",
         kern: ["Clustering", "Dimensiereductie", "PCA / SVD"],
         tekst: [
           "Bij onbegeleid leren ontbreken de juiste antwoorden (labels). Clustering zoekt dan zelf groepen met vergelijkbare observaties, bijvoorbeeld met k-means.",
-          "Dimensiereductie vat veel variabelen samen in minder nieuwe variabelen, zodat belangrijke patronen behouden blijven en ruis of rekenwerk kan afnemen.",
+          "Dimensiereductie vat veel variabelen samen in minder nieuwe variabelen. Schaal kenmerken eerst als hun eenheden verschillen; anders kunnen grote schalen de afstanden en PCA domineren.",
+          "Bij PCA zijn scores de observaties op de componenten en loadings de bijdragen van variabelen. Scree plots of cumulatieve verklaarde variantie helpen componenten kiezen; hoge verklaarde variantie betekent niet automatisch goede voorspelling van Y.",
+          "K-means zoekt centroids die de within-cluster sum of squares (WCSS) minimaliseren; het past bij compacte groepen en meerdere starts helpen lokale minima vermijden. Een elbow plot is een vuistregel om K te kiezen. Hiërarchisch clusteren maakt een dendrogram; linkage bepaalt afstanden tussen groepen. Silhouette helpt de scheiding beoordelen.",
           "PCA en SVD zijn veelgebruikte wiskundige technieken voor dimensiereductie.",
+          "Gaussian mixtures geven zachte clusterkansen; DBSCAN zoekt dichtheidsclusters zonder vooraf K te kiezen. t-SNE en UMAP zijn vooral visualisaties: interpreteer globale afstanden voorzichtig.",
         ],
       },
       {
-        titel: "Lineaire regressie",
+        titel: "Linear Regression",
         kern: ["Residu", "R²", "MSE"],
+        visual: { label: "Lineair model", formula: "Ŷ = β₀ + β₁X", note: "β₀ is het startpunt; β₁ is de verandering per stap in X." },
         tekst: [
           "Het model Y = β₀ + β₁X + ε beschrijft een rechte lijn: β₀ is het startpunt en β₁ geeft aan hoeveel de voorspelde Y verandert als X één stap stijgt.",
+          "Bij meerdere kenmerken wordt dit Ŷ = β₀ + β₁X₁ + … + βₚXₚ. Een categorisch kenmerk wordt meestal met indicatorvariabelen gecodeerd; de weggelaten categorie is de referentie. Een interactieterm laat het effect van het ene kenmerk afhangen van een ander; neem meestal ook beide hoofdeffecten (main effects) op.",
           "Een residu is het verschil tussen de echte waarde en de voorspelling. De gemiddelde kwadratische fout (mean squared error, MSE) is het gemiddelde van die verschillen nadat ze zijn gekwadrateerd; grote fouten tellen daardoor extra zwaar.",
-          "R² geeft aan welk deel van de variatie in Y door het model wordt verklaard. Een significantietoets onderzoekt of een gevonden verband lastig met toeval alleen te verklaren is.",
+          "R² geeft aan welk deel van de variatie in Y door het model wordt verklaard. t-toetsen beoordelen individuele coëfficiënten; een F-toets kan meerdere coëfficiënten tegelijk vergelijken.",
+          "Least squares kiest coëfficiënten die RSS (residual sum of squares) minimaliseren; RSE (residual standard error) schat de typische residugrootte.",
+          "Een betrouwbaarheidsinterval (confidence interval) beschrijft onzekerheid over het gemiddelde antwoord; een voorspellingsinterval (prediction interval) voor één nieuwe observatie is breder. Residuen, leverage en VIF helpen afwijkende punten en multicollineariteit opsporen.",
         ],
       },
       {
-        titel: "Bias–variantie-afweging",
+        titel: "Classification",
+        kern: ["Logistic regression", "LDA / QDA / KNN", "Confusion matrix, ROC, AUC"],
+        visual: { label: "Van kans naar klasse", formula: "P(Y = 1 | X) → threshold → predicted class", note: "De standaarddrempel is vaak 0.5, maar hangt af van foutkosten en doel." },
+        tekst: [
+          "Logistische regressie schat een klassekans. LDA en QDA modelleren de verdeling van kenmerken per klasse; QDA laat verschillende covariantiematrices toe. Naive Bayes gebruikt conditionele onafhankelijkheid; KNN kijkt naar nabije voorbeelden.",
+          "Logistische regressie modelleert log-odds: een coëfficiënt β vermenigvuldigt de odds met e^β per eenheid. QDA schat een covariantiematrix per klasse (O(p²) parameters per klasse); LDA deelt één matrix. Poisson-regressie met een log-link past vaak bij teluitkomsten.",
+          "Een confusion matrix telt true/false positives en negatives. Sensitivity (recall) meet welk deel van de positieven wordt gevonden; specificity welk deel van de negatieven correct wordt herkend.",
+          "Een ROC-curve vergelijkt sensitivity met false-positive rate over drempels. AUC vat de rangschikkingskwaliteit samen. Calibratie vraagt of voorspelde kansen overeenkomen met werkelijke frequenties.",
+        ],
+      },
+      {
+        titel: "Bias–Variance Trade-off",
         kern: ["Hoge bias", "Hoge variantie", "Balans"],
+        visual: { label: "Herken het probleem", steps: ["Te simpel model → underfitting", "Te complex model → overfitting", "Doel → goed voorspellen op nieuwe data"] },
         tekst: [
           "Een model met hoge bias is te eenvoudig en mist patronen: onderaanpassing (underfitting). Het presteert dan vaak slecht op zowel trainingsdata als nieuwe data.",
           "Een model met hoge variantie past zich te sterk aan de trainingsdata aan, inclusief toevallige ruis: overaanpassing (overfitting). Het presteert dan minder goed op nieuwe data.",
           "Het doel is niet de trainingsdata perfect te onthouden, maar goed te presteren op nieuwe voorbeelden. Dat heet generaliseren.",
+          "De verwachte test-MSE is op te delen in bias², variantie en irreducibele fout. Bij KNN bepaalt K de gladheid: grotere K geeft stabielere maar minder lokale voorspellingen.",
         ],
       },
       {
-        titel: "Kruisvalidering",
+        titel: "Cross-Validation",
         kern: ["K-fold", "Train op K−1", "Test op 1 fold"],
+        visual: { label: "K-fold cyclus", steps: ["Verdeel data in K folds", "Train op K−1 folds", "Test op de overgebleven fold", "Herhaal K keer en neem het gemiddelde"] },
         tekst: [
           "Kruisvalidering schat hoe goed een model op nieuwe data zal werken. Zo hangt de beoordeling minder af van één toevallige train-test-splitsing.",
           "Bij K-fold verdeel je de trainingsdata in K delen. Je traint K keer: steeds op K−1 delen en test op het overgebleven deel. Neem daarna het gemiddelde van de K scores.",
+          "Een validation split reserveert één deel; LOOCV laat telkens één observatie weg. Bootstrap trekt steekproeven met teruglegging; de spreiding van herhaalde schattingen geeft een standaardfout of interval. OOB-observaties kunnen modellen evalueren.",
+          "Gebruik nested cross-validation als je hyperparameters kiest én prestaties wilt schatten. Voer schaling, featureselectie en andere preprocessing binnen elke trainingsfold uit om leakage te voorkomen.",
         ],
       },
       {
-        titel: "Regularisatie",
+        titel: "Regularization",
         kern: ["Ridge L2", "Lasso L1", "Feature selection"],
+        visual: { label: "Strafterm", formula: "Ridge: λΣβ²   ·   Lasso: λΣ|β|", note: "Een grotere λ remt grote coëfficiënten sterker af." },
         tekst: [
           "Regularisatie voegt een straf toe voor grote modelcoëfficiënten. Zo wordt het model minder complex en neemt de kans op overfitting af.",
           "Ridge gebruikt een L2-straf en maakt coëfficiënten meestal kleiner. Lasso gebruikt een L1-straf en kan sommige coëfficiënten precies 0 maken.",
-          "Een coëfficiënt van 0 betekent dat die variabele niet bijdraagt aan de voorspelling. Lasso doet zo automatisch aan variabelenselectie.",
+          "Standaardiseer kenmerken vóór ridge of lasso, zodat hun straf vergelijkbaar is. Elastic net combineert L1 en L2. Best subset vergelijkt combinaties; forward voegt en backward verwijdert kenmerken. Cp, AIC en BIC wegen fit af tegen modelgrootte.",
+          "Group lasso kan een hele groep kenmerken tegelijk verwijderen. Adaptive lasso en SCAD proberen de bias op grote coëfficiënten te verminderen.",
+          "PCR voorspelt met principale componenten van X; PLS kiest componenten die ook rekening houden met Y. Kies het aantal componenten of de strafsterkte met validatie.",
         ],
       },
       {
-        titel: "Beslissingsbomen",
+        titel: "Beyond Linearity",
+        kern: ["Polynomials", "Splines / knots", "GAM / smoothing"],
+        visual: { label: "Meer flexibiliteit", steps: ["Rechte lijn", "Polynoom of spline-basis", "Spline- of GAM-fit; kies flexibiliteit met validatie"] },
+        tekst: [
+          "Een polynoom voegt machten zoals X² toe. Splines passen stukgewijs eenvoudige functies aan elkaar bij knots; natural cubic splines beperken gedrag aan de randen.",
+          "Een step function deelt X in intervallen en voorspelt binnen elk interval een constante waarde. Kies knopen, spline-vrijheidsgraden en gladheid met validatie.",
+          "Smoothing splines balanceren aansluiting op de data en gladheid met een strafparameter λ. Lokale regressie past rond elk doelpunt een kleine lokale fit.",
+          "Een generalized additive model (GAM) telt gladde functies per kenmerk op: g(E[Y]) = β₀ + f₁(X₁) + … + fₚ(Xₚ). Zo modelleer je kromming en behoud je deels interpreteerbaarheid.",
+        ],
+      },
+      {
+        titel: "Decision Trees",
         kern: ["Interpreteerbaar", "Regressie + classificatie", "Overfitting"],
+        visual: { label: "Van boom naar ensemble", steps: ["Groei een boom met splitsingen", "Snoei of beperk diepte tegen overfitting", "Combineer bomen voor stabielere voorspellingen"] },
         tekst: [
           "Een beslissingsboom stelt achtereenvolgens vragen over de invoer en splitst zo de gegevens in kleinere groepen. De uitkomst is een getal (regressie) of een categorie (classificatie).",
-          "De splitsingen zijn vaak goed uit te leggen, maar een diepe boom kan de trainingsdata uit het hoofd leren. Een ensemble combineert meerdere bomen om dat risico te verkleinen.",
+          "De boom kiest greedy splitsingen die lokaal Gini/deviance (classificatie) of RSS (regressie) verlagen. Een blad voorspelt de meerderheidsklasse of het gemiddelde antwoord. Een diepe boom kan overfitten; beperk groei of snoei met validatie.",
         ],
       },
       {
-        titel: "Ensemble-methoden",
+        titel: "Ensemble Methods",
         kern: ["Bagging", "Random forest", "Boosting"],
         tekst: [
           "Bagging traint meerdere modellen op bootstrap-steekproeven: willekeurige steekproeven met teruglegging. Daarna combineert het de uitkomsten, wat voorspellingen vaak stabieler maakt.",
-          "Een random forest combineert bagging met een willekeurige selectie van variabelen bij elke splitsing. Daardoor lijken de bomen minder op elkaar.",
-          "Boosting traint modellen na elkaar. Elk nieuw model richt zich extra op fouten van eerdere modellen. Voorbeelden zijn AdaBoost, gradient boosting en XGBoost.",
+          "Out-of-bag-observaties (OOB) zijn per boom de niet-getrokken voorbeelden en geven een ingebouwde foutschatting. Een random forest kiest ook willekeurig kenmerken per splitsing (mtry), zodat de bomen minder op elkaar lijken.",
+          "Boosting traint modellen na elkaar; elk nieuw model richt zich op resterende fouten. Voorbeelden zijn AdaBoost, gradient boosting en XGBoost. Shrinkage (learning rate) tempert hoe sterk elk nieuw model meetelt.",
+          "BART telt veel kleine, door priors begrensde bomen op. Stacking leert een metamodel dat voorspellingen van meerdere basismodellen combineert.",
         ],
       },
       {
         titel: "Support Vector Machine",
         kern: ["Hyperplane", "Marge", "Kernel-truc"],
+        visual: { label: "Soft-margin doel", formula: "marge maximaliseren + C × overtredingen beperken", note: "C groot straft marge-overtredingen zwaarder; C klein laat meer toe." },
         tekst: [
           "Een support-vector-machine (SVM) zoekt een grens die klassen scheidt en de afstand tot de dichtstbijzijnde punten zo groot mogelijk maakt. Die afstand heet de marge; de dichtstbijzijnde punten zijn de support vectors.",
-          "Met een kernel kan een SVM ook gebogen grenzen maken zonder de gegevens expliciet naar een hogere dimensie om te rekenen. Veelgebruikte kernels zijn lineair, polynomiaal en RBF.",
+          "Bij een soft margin meten slack-variabelen hoeveel punten de marge schenden. C bepaalt de afweging tussen een brede marge en weinig overtredingen. De hinge loss is de bijbehorende classificatiestraf.",
+          "De kernel trick berekent inner products in een impliciete hogere-dimensionale ruimte. Hard margin vereist lineaire scheidbaarheid; kernels zoals RBF maken niet-lineaire grenzen mogelijk. Voor RBF bepaalt γ hoe lokaal punten invloed hebben; schaal kenmerken en kies C en γ met validatie.",
         ],
       },
       {
-        titel: "Principale-componentenanalyse",
+        titel: "Principal Component Analysis",
         kern: ["Minder dimensies", "Variantie", "Eigenvectoren"],
+        visual: { label: "PCA in één zin", formula: "Veel variabelen → enkele componenten", note: "De eerste component vangt zo veel mogelijk variantie." },
         tekst: [
           "Principale-componentenanalyse (principal component analysis, PCA) vat gegevens samen met minder variabelen. Dat kan visualisatie en berekeningen eenvoudiger maken.",
-          "De eerste principale component wijst in de richting waarin de gegevens het meest variëren; de volgende componenten vatten zoveel mogelijk overgebleven variatie samen. Eigenvectoren bepalen de richtingen en eigenwaarden geven aan hoeveel variatie elke richting bevat.",
+          "Schaal variabelen eerst als hun eenheden sterk verschillen. De eerste component vangt de meeste variantie; eigenvectoren bepalen de richtingen en eigenwaarden de hoeveelheid variantie. Scores zijn observatiecoördinaten; loadings laten zien welke variabelen de component vormen.",
+          "Scree plots en de cumulatieve explained variance helpen het aantal componenten kiezen. Veel variantie op een component betekent niet automatisch dat die goed Y voorspelt.",
         ],
       },
       {
-        titel: "Singuliere-waarde-ontbinding",
+        titel: "Singular Value Decomposition",
         kern: ["A = UΣVᵀ", "Matrixaanvulling", "Compressie"],
         tekst: [
           "Singuliere-waarde-ontbinding (singular value decomposition, SVD) schrijft een matrix A als A = UΣVᵀ. De factoren U, Σ en Vᵀ leggen verschillende richtingen en hun relatieve sterkte vast.",
@@ -252,15 +354,41 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Diep leren",
-        kern: ["Lagen", "Backprop", "Gradient descent"],
+        titel: "Survival Analysis",
+        kern: ["Censoring", "Kaplan–Meier", "Log-rank / Cox"],
+        visual: { label: "Survival en hazard", formula: "S(t) = P(T > t)   ·   HR = exp(β)", note: "S(t) is overlevingskans; HR vergelijkt instantane event-rates." },
         tekst: [
-          "Een neuraal netwerk verwerkt invoer via een invoerlaag, een of meer verborgen lagen en een uitvoerlaag. Elke verbinding heeft een gewicht dat bepaalt hoe sterk informatie meetelt.",
-          "Tijdens training vergelijkt het netwerk zijn voorspelling met het juiste antwoord. Backpropagation berekent hoe gewichten de fout beïnvloeden; gradient descent past die gewichten stap voor stap aan. Activatiefuncties maken ook niet-lineaire verbanden leerbaar.",
+          "Overlevingsanalyse bestudeert de tijd tot een gebeurtenis. Bij right-censoring weet je dat het event tot een bepaald tijdstip niet is opgetreden, maar de exacte eventtijd is onbekend.",
+          "Noteer δ = 1 als het event is waargenomen en δ = 0 als de observatie is gecensureerd. Cox gebruikt partial likelihood om β te schatten door bij elk event de persoon met de anderen in de risk set te vergelijken, zonder baseline hazard parametrisch vast te leggen.",
+          "Kaplan–Meier schat de survivalcurve S(t); de log-ranktoets vergelijkt groepen. De hazard is de instantane event-rate onder wie tot dat moment nog risico loopt.",
+          "Cox-regressie modelleert hoe kenmerken de hazard vermenigvuldigen: exp(β) is de hazard ratio. De proportional-hazardsaanname zegt dat die verhouding constant blijft over tijd.",
+          "AFT-modellen beschrijven log-overlevingstijd. Competing risks zijn elkaar uitsluitende eventtypen; Firth-penalisatie kan Cox-schattingen stabiliseren bij weinig events of separatie.",
         ],
       },
       {
-        titel: "Examenbegrippen",
+        titel: "Deep Learning",
+        kern: ["Lagen", "Backprop", "Gradient descent"],
+        tekst: [
+          "Een neuraal netwerk verwerkt invoer via een invoerlaag, een of meer verborgen lagen en een uitvoerlaag. Elke verbinding heeft een gewicht dat bepaalt hoe sterk informatie meetelt.",
+          "Tijdens training vergelijkt een lossfunctie de voorspelling met het antwoord. Backpropagation berekent gradiënten; gradient descent past gewichten in mini-batches aan. Activatiefuncties maken niet-lineaire verbanden leerbaar.",
+          "Zonder niet-lineaire activaties blijft een stapel lagen één lineaire map. Sigmoid geeft vaak een binaire kans; softmax geeft klassekansen die optellen tot 1.",
+          "Dropout, weight decay en early stopping helpen overfitting beperken; kies instellingen met validatiedata. CNN’s zijn geschikt voor lokale patronen in beelden; RNN’s en transformers verwerken sequenties.",
+          "LoRA past kleine low-rank adapters aan in plaats van alle modelgewichten. Bij double descent kan testfout na een piek rond interpolatie opnieuw dalen als een model verder wordt geparametriseerd.",
+        ],
+      },
+      {
+        titel: "Multiple Testing",
+        kern: ["FWER", "FDR / Benjamini–Hochberg", "Bonferroni / Holm"],
+        visual: { label: "Twee foutdoelen", steps: ["FWER: kans op minstens één false positive", "FDR: verwacht aandeel false positives onder ontdekkingen", "Kies de correctie vóór je resultaten interpreteert"] },
+        tekst: [
+          "Bij veel toetsen stijgt de kans op toevallig significante resultaten. FWER (family-wise error rate) begrenst de kans op minstens één false positive; Bonferroni gebruikt per toets α/m en Holm past de grens stapsgewijs aan.",
+          "Type I-fout (Type I error) is een false positive; Type II-fout (Type II error) is een gemist echt effect. Power (statistical power) = 1 − β is de kans een echt effect te ontdekken; strengere correctie kan power verlagen.",
+          "FDR (false discovery rate) begrenst het verwachte aandeel false positives onder de ontdekkingen. Benjamini–Hochberg sorteert p-waarden en kiest de grootste k waarvoor p(k) ≤ kα/m.",
+          "Correctie verlaagt false positives maar kan power kosten. Definieer de familie van toetsen en rapporteer het aantal toetsen, de procedure en het gekozen α- of FDR-niveau. BY is conservatiever bij algemene afhankelijkheid; knockoffs richten zich op featureselectie, online FDR op sequentiële toetsen en e-values op alternatieve foutcontrole.",
+        ],
+      },
+      {
+        titel: "Exam Terms",
         kern: ["NL ↔ EN", "Underfitting / overfitting", "PCA / SVD"],
         tekst: [
           "Onderaanpassing (underfitting) betekent dat een model te eenvoudig is. Overaanpassing (overfitting) betekent dat het trainingsdata te precies volgt en daardoor slechter kan voorspellen op nieuwe data.",
@@ -272,11 +400,12 @@ const SAMENVATTINGEN = {
     ],
   },
   ds: {
-    titel: "Datastructuren & sorteeralgoritmen",
+    titel: "Data Structures & Sorting Algorithms",
     hoofdstukken: [
       {
         titel: "Arrays",
         kern: ["Aaneengesloten geheugen", "Index O(1)", "Insert/delete O(n)"],
+        visual: { label: "Elementadres", formula: "base + index × elementsize", note: "Daarom is toegang via een array-index O(1)." },
         tekst: [
           "Een array legt elementen opeenvolgend in het geheugen, met vaste index 0…n−1.",
           "arr[3] is O(1): adres = basis + 3 × elementgrootte. Zoeken op waarde zonder extra index is O(n).",
@@ -284,8 +413,9 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Gekoppelde lijsten",
+        titel: "Linked Lists",
         kern: ["Nodes + pointer", "Insert O(1)", "Toegang O(n)"],
+        visual: { label: "Pointerketen", formula: "head → A → B → C → null", note: "Zoeken volgt de pointers één voor één." },
         tekst: [
           "Elke node heeft data en een pointer naar de volgende. Elementen liggen niet naast elkaar.",
           "Het k-de element opzoeken is O(n). Invoegen of verwijderen, als je de node hebt, is pointerwerk O(1).",
@@ -293,8 +423,9 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Stapels",
+        titel: "Stacks",
         kern: ["LIFO", "Push/pop/peek O(1)", "Call stack"],
+        visual: { label: "Last In, First Out", steps: ["push A", "push B", "pop → B", "pop → A"] },
         tekst: [
           "Last In, First Out: zoals een stapel boeken. Push, pop en peek werken alleen aan de top en zijn O(1).",
           "Toepassingen: undo, browser-terug, recursie, haakjes matchen, depth-first search.",
@@ -302,16 +433,18 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Wachtrijen",
+        titel: "Queues",
         kern: ["FIFO", "Enqueue/dequeue O(1)", "Scheduling"],
+        visual: { label: "First In, First Out", formula: "dequeue ← A · B · C ← enqueue", note: "A komt er als eerste weer uit." },
         tekst: [
           "First In, First Out: de kassa. Enqueue achteraan, dequeue vooraan; beide O(1) met kop+staart of ringbuffer.",
           "Toepassingen: printwachtrijen, taakplanning, BFS. Een stack keert volgorde om; een queue bewaart aankomstvolgorde.",
         ],
       },
       {
-        titel: "Hash-tabellen",
+        titel: "Hash Tables",
         kern: ["hash(sleutel) → vak", "Gemiddeld O(1)", "Collisions"],
+        visual: { label: "Zoekpad", formula: "key → hash(key) → bucket", note: "Een collision ontstaat als meerdere keys hetzelfde vak kiezen." },
         tekst: [
           "Een hashfunctie zet de sleutel om in een vak. Gemiddeld zoeken, invoegen en verwijderen O(1).",
           "Dat kraakt bij slechte hashes of een te volle tabel (load factor). Collisions: chaining of open addressing.",
@@ -319,8 +452,9 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Bomen",
+        titel: "Trees",
         kern: ["BST", "Links < knoop < rechts", "O(log n)"],
+        visual: { label: "BST-regel", formula: "links < node < rechts", note: "Een gebalanceerde boom heeft hoogte O(log n)." },
         tekst: [
           "In een binary search tree: links < knoop < rechts. Gebalanceerd zijn zoeken, insert en delete O(log n).",
           "Een keten degradeert tot O(n). AVL en rood-zwart bewaren balans.",
@@ -328,8 +462,9 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Heap-structuren",
+        titel: "Heaps",
         kern: ["Parent ≥ children", "Max O(1)", "Insert O(log n)"],
+        visual: { label: "Max-heap in array", formula: "parent(i) = ⌊(i−1)/2⌋\nchildren = 2i+1, 2i+2" },
         tekst: [
           "Een max-heap is een complete boom met parent ≥ children. Het maximum zit in de wortel: O(1).",
           "Insert en max verwijderen zijn O(log n). Min-heap spiegelt de ongelijkheid.",
@@ -337,7 +472,7 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Waarom sorteren",
+        titel: "Why Sorting Matters",
         kern: ["Binary search", "Voorbereiding", "Kernprobleem"],
         tekst: [
           "Op een gesorteerde rij werkt binary search; op een warboel niet.",
@@ -346,8 +481,9 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Bubbelsortering",
+        titel: "Bubble Sort",
         kern: ["Buren wisselen", "O(n²)", "Zelden productie"],
+        visual: { label: "Eén pass", formula: "[5, 2, 4] → [2, 5, 4] → [2, 4, 5]", note: "Vergelijk en wissel steeds twee buren." },
         tekst: [
           "Vergelijkt buren en wisselt tot de rij op volgorde is.",
           "Beste geval O(n) met een vlag op al gesorteerde input; gemiddeld en slechtst O(n²).",
@@ -355,8 +491,9 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Selectiesortering",
+        titel: "Selection Sort",
         kern: ["Steeds het minimum", "Altijd O(n²)", "Weinig swaps"],
+        visual: { label: "Eén stap", formula: "[5, 2, 4] → minimum 2 → [2 | 5, 4]", note: "Zet het minimum van het ongesorteerde deel vooraan." },
         tekst: [
           "Zoekt telkens het kleinste resterende element en zet het vooraan.",
           "Altijd O(n²): geen nearly-sorted bonus. Weinig swaps (hooguit n).",
@@ -364,16 +501,18 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Invoegsortering",
+        titel: "Insertion Sort",
         kern: ["Gesorteerd prefix", "Beste O(n)", "Klein / bijna gesorteerd"],
+        visual: { label: "Gesorteerd prefix", formula: "[2, 5 | 4] → [2, 4, 5]", note: "Schuif het volgende item op de juiste plek." },
         tekst: [
           "Bouwt links een gesorteerd deel en schuift elk nieuw element op z’n plek.",
           "Beste O(n) als data bijna gesorteerd is; anders O(n²). Sterk op kleine arrays en in hybrides (quick/merge tot een drempel, daarna insertion).",
         ],
       },
       {
-        titel: "Samenvoegsortering",
+        titel: "Merge Sort",
         kern: ["Divide and conquer", "Altijd O(n log n)", "Extra geheugen"],
+        visual: { label: "Divide and conquer", steps: ["Splits de rij in helften", "Sorteer beide helften", "Voeg ze geordend samen"] },
         tekst: [
           "Splits tot enkelingen, merge gesorteerde helften. Altijd O(n log n).",
           "Stabiel, voorspelbaar, goed voor grote data. Nadeel: O(n) hulpruimte.",
@@ -392,19 +531,31 @@ const SAMENVATTINGEN = {
       {
         titel: "Heap sort",
         kern: ["Heapify", "Altijd O(n log n)", "In-place"],
+        visual: { label: "Herhaal tot leeg", steps: ["Bouw een max-heap", "Verwissel wortel met laatste item", "Verklein heap en herstel de heap"] },
         tekst: [
           "Bouw een max-heap (O(n) heapify), trek herhaaldelijk het maximum naar het einde, herstel de heap.",
           "Altijd O(n log n), in-place, geen O(n²)-staart. Vaak iets trager dan getunede quick, niet stabiel.",
         ],
       },
       {
-        titel: "Eindoverzicht",
+        titel: "Other Sorting Algorithms",
+        kern: ["Shell sort", "Counting / Radix sort", "Bucket sort"],
+        tekst: [
+          "Shell sort is een uitbreiding van insertion sort: vergelijk eerst items op grotere afstanden (gaps) en verklein die afstand tot 1. Het is in-place en doorgaans niet stabiel; de precieze looptijd hangt af van de gekozen gap-reeks.",
+          "Counting sort is niet-vergelijkend: het telt hoe vaak elke sleutel voorkomt. Met n items en een sleutelbereik k kost het O(n + k) tijd. Een stabiele variant gebruikt doorgaans O(n + k) extra ruimte inclusief uitvoerbuffer; alleen de teltabel is O(k). Een zeer groot sleutelbereik verspilt ruimte.",
+          "Radix sort sorteert sleutels cijfer voor cijfer met een stabiele deel-sortering; die stabiliteit bewaart de volgorde van gelijke sleutels uit eerdere rondes. Sleutels met variabele lengte kunnen met volgordebewarende opvulling worden verwerkt. Bucket sort verdeelt waarden over vakken en sorteert ieder vak; bij gelijkmatig verdeelde waarden is het gemiddeld lineair, maar het slechtste geval kan O(n²) zijn.",
+        ],
+        visual: { label: "Kies naar je sleutels", steps: ["Gaps → Shell", "Klein integerbereik → Counting", "Vaste cijfers → Radix", "Gelijkmatig verdeelde waarden → Bucket"] },
+      },
+      {
+        titel: "Final Overview",
         kern: ["Structuur kiest de O", "Sort-tabel", "Meet de hotspot"],
         tekst: [
           "Array: index O(1), zoeken/insert O(n). List: insert O(1), toegang O(n). Hash: gemiddeld O(1). BST: O(log n). Heap: max O(1), insert O(log n).",
-          "Bubble/selection/insertion: O(n²) (bubble/insertion beste O(n)). Merge/heap: altijd O(n log n). Quick: gem. O(n log n), worst O(n²).",
-          "Kies structuur naar de operatie die het vaakst gebeurt. Klein/nearly sorted → insertion; garantie + RAM → merge; in-place garantie → heap; praktijkgemiddelde → quick.",
+          "Bubble, selection en insertion sort: O(n²) (bubble/insertion best case O(n)). Merge en heap sort: altijd O(n log n). Quick sort: gemiddeld O(n log n), worst case O(n²). Counting sort: O(n + k); radix sort: O(d(n + k)).",
+          "Shell sort hangt af van de gap-reeks. Bucket sort is gemiddeld O(n + k) bij een passende verdeling, maar worst case O(n²). Kies op basis van data, gewenste garantie en geheugen.",
         ],
+        visual: { label: "Sorteerkeuze", steps: ["Bijna gesorteerd / klein → Insertion", "Worst-case O(n log n) → Merge of Heap", "Klein integerbereik → Counting", "Vaste cijfers → Radix"] },
       },
     ],
   },
@@ -412,24 +563,26 @@ const SAMENVATTINGEN = {
     titel: "Big-O notation",
     hoofdstukken: [
       {
-        titel: "Waarom Big-O",
+        titel: "Why Big-O",
         kern: ["n groeit", "Tijdscomplexiteit", "Algoritme vs hardware"],
+        visual: { label: "What to compare", formula: "T(n) as n grows", note: "The growth rate, not the time on one computer." },
         tekst: [
           "Op vijf namen is lineair zoeken triviaal; op een miljoen namen telt hoe het aantal stappen meegroeit.",
           "Big-O is de taal voor die groei. Hardware wint een constante; een slechter groeipatroon haal je daar zelden mee in.",
         ],
       },
       {
-        titel: "Wat meet Big-O",
+        titel: "What Big-O Measures",
         kern: ["Stappen als f(n)", "Geen wall-clock", "O(n)-voorbeeld"],
         tekst: [
-          "Big-O meet geen seconden of RAM, maar het aantal stappen als functie van n.",
+          "Tijdscomplexiteit beschrijft hoe het aantal stappen groeit met n; ruimtecomplexiteit beschrijft hoe het extra geheugengebruik groeit met n.",
           "Een lus over de lijst is O(n). Twee machines kunnen dezelfde O-klasse hebben en toch verschillende kloktijden.",
         ],
       },
       {
-        titel: "Intuïtie",
+        titel: "Intuition",
         kern: ["O(1)", "O(n)", "O(log n)"],
+        visual: { label: "Repeated halving", formula: "n → n/2 → n/4 → … → 1", note: "The number of halvings is about log₂(n)." },
         tekst: [
           "O(1): pagina 150 openslaan of arr[i] — één sprong, n speelt geen rol.",
           "O(n): naam zoeken in een ongesorteerde stapel — tijd groeit evenredig met n.",
@@ -437,8 +590,9 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Complexiteiten",
+        titel: "Complexity Classes",
         kern: ["O(1) t/m O(2ⁿ)", "n log n", "Kwadratisch vs exponentieel"],
+        visual: { label: "Growth from slow to fast", steps: ["O(1) → O(log n) → O(n)", "O(n log n) → O(n²) → O(2ⁿ)"] },
         tekst: [
           "O(1) vlak. O(log n) binary search. O(n) scannen. O(n log n) merge/heap/gemiddelde quick.",
           "O(n²) dubbele lus — snel problematisch. O(2ⁿ) verdubbelt per extra input, bijna nooit voor grote n.",
@@ -446,7 +600,7 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Constanten",
+        titel: "Constants",
         kern: ["3n is O(n)", "Grote n", "1000n vs n²"],
         tekst: [
           "Big-O gooit constante factoren en lagere-orde termen weg. 5n, 10n en 100n zijn allemaal O(n).",
@@ -455,7 +609,7 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Beste, gemiddeld, slechtst",
+        titel: "Best, Average, and Worst Case",
         kern: ["Best O(1)", "Worst O(n)", "Gemiddeld blijft O(n)"],
         tekst: [
           "Linear search: best één stap als het element vooraan staat, worst O(n), gemiddeld n/2 → nog steeds O(n).",
@@ -463,8 +617,9 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Ruimtecomplexiteit",
+        titel: "Space Complexity",
         kern: ["Space complexity", "O(1) extra", "O(n) extra"],
+        visual: { label: "Examples", formula: "one counter → O(1)   ·   copy of n items → O(n)" },
         tekst: [
           "Tijd is stappen; ruimte is extra geheugen als functie van n.",
           "Som in één variabele: O(1) extra. Nieuwe lijst van lengte n of n recursieframes: O(n).",
@@ -472,7 +627,7 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Praktijk",
+        titel: "In Practice",
         kern: ["10 miljoen producten", "O(n²) onmogelijk", "Datastructuur kiest de O"],
         tekst: [
           "Bij 10 miljoen producten is naïeve O(n²) onrealistisch. Je hebt O(n log n) of beter nodig: index, hash, boom.",
@@ -480,7 +635,7 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Valkuilen",
+        titel: "Common Pitfalls",
         kern: ["Geen stopwatch", "Geen O(100n)", "Worst case"],
         tekst: [
           "Big-O is geen exacte tijd. Constanten horen niet in de notatie (niet O(100n)).",
@@ -489,7 +644,7 @@ const SAMENVATTINGEN = {
         ],
       },
       {
-        titel: "Kernidee",
+        titel: "Core Idea",
         kern: ["Schalen", "log n vs n vs n²", "Eerst klasse, dan constanten"],
         tekst: [
           "Big-O beschrijft hoe snel het slechter wordt als de data groeit — niet hoe snel het vandaag draait.",

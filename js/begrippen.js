@@ -99,6 +99,10 @@ const BEGRIPPEN = [
   { titel: "Merge sort", names: ["merge sort", "divide and conquer"], tekst: "Altijd O(n log n), stabiel, O(n) hulpruimte." },
   { titel: "Quick sort", names: ["quick sort", "quicksort", "pivot", "introsort"], tekst: "Pivot + partitie. Gemiddeld O(n log n), worst O(n²). Vaak snel, niet stabiel in-place." },
   { titel: "Heap sort", names: ["heap sort"], tekst: "Heapify + herhaaldelijk max naar het einde. Altijd O(n log n), in-place, niet stabiel." },
+  { titel: "Shell sort", names: ["shell sort", "gap sequence", "gap-reeks"], tekst: "Insertion sort met afstanden (gaps) die steeds kleiner worden tot 1. In-place; de looptijd hangt af van de gekozen gap-reeks." },
+  { titel: "Counting sort", names: ["counting sort", "teltabel"], tekst: "Telt voorkomens van sleutels. O(n + k) tijd en O(k) ruimte bij n items en bereik k; geschikt voor een klein begrensd integerbereik." },
+  { titel: "Radix sort", names: ["radix sort", "radix"], tekst: "Sorteert cijfer of positie voor cijfer met een stabiele deel-sortering. Typisch O(d(n + k)) voor d posities en bereik k." },
+  { titel: "Bucket sort", names: ["bucket sort", "buckets"], tekst: "Verdeelt waarden over buckets en sorteert die. Gemiddeld vaak O(n + k) bij passende verdeling; worst case O(n²) als waarden samenklonteren." },
   { titel: "Big-O", names: ["big-o", "tijdscomplexiteit", "groeipatroon"], tekst: "Aantal stappen (of extra geheugen) als functie van n. Geen wall-clock." },
   { titel: "O(1) / O(log n) / O(n)", names: ["o(1)", "o(log n)", "o(n)", "halveren"], tekst: "O(1) constante sprong, O(log n) halveren, O(n) lineair scannen." },
   { titel: "O(n log n) / O(n²) / O(2ⁿ)", names: ["o(n log n)", "o(n²)", "o(2ⁿ)", "kwadratisch", "exponentieel"], tekst: "n log n: merge/heap/gem. quick. n²: dubbele lus. 2ⁿ: meestal onpraktisch." },
@@ -148,7 +152,7 @@ function begrippenVoor(question) {
 }
 
 const HOOFDSTUK_FOCUS = {
-  "H1 Introduction": ["n en p", "Supervised vs unsupervised", "Prediction vs inference", "ISLP-notatie"],
+  "H1 Introduction": ["n en p", "Supervised vs unsupervised", "Prediction vs inference", "Statistical learning notation"],
   "H2 Statistical Learning": ["Prediction", "Inference", "Y, X, ε", "Overfitting / underfitting", "Bias–variance", "Generalisatie"],
   "H3 Linear Regression": ["RSS / RSE / R²", "t en p-waarde", "F-statistic", "Dummy", "VIF", "KNN vs lineair"],
   "H4 Classification": ["Logistic / odds / logit", "LDA vs QDA", "Naive Bayes", "ROC / AUC", "GLM"],
@@ -175,7 +179,11 @@ const HOOFDSTUK_FOCUS = {
   "H12 Merge Sort": ["Altijd n log n", "Stabiel", "O(n) extra"],
   "H13 Quick Sort": ["Pivot", "Gem. n log n", "Worst n²"],
   "H14 Heap Sort": ["Heapify", "Altijd n log n", "In-place"],
-  "H15 Eindoverzicht": ["Hotspot", "Sort-tabel", "Structuur kiest O"],
+  "H15 Shell Sort": ["Gaps", "Insertion sort", "Gap-reeks bepaalt tijd"],
+  "H16 Counting Sort": ["Teltabel", "O(n + k)", "Klein sleutelbereik"],
+  "H17 Radix Sort": ["Cijfer voor cijfer", "Stabiele deel-sort", "O(d(n + k))"],
+  "H18 Bucket Sort": ["Waarden verdelen", "Gelijkmatige verdeling", "Worst O(n²)"],
+  "H19 Eindoverzicht": ["Vergelijkend", "Niet-vergelijkend", "Kies op invoer"],
   "H1 Waarom Big-O": ["n groeit", "Tijdscomplexiteit", "Hardware vs algoritme"],
   "H2 Wat meet Big-O": ["Stappen f(n)", "Geen wall-clock", "O(n)"],
   "H3 Intuïtie": ["O(1)", "O(n)", "O(log n)"],

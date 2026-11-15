@@ -396,6 +396,18 @@ function escapeAttr(value) {
   return escapeHtml(value).replaceAll("'", "&#39;");
 }
 
+function renderSummaryVisual(visual) {
+  if (!visual) return "";
+  const content = visual.steps
+    ? `<ol>${visual.steps.map((step) => `<li>${escapeHtml(translateSummaryTerms(step))}</li>`).join("")}</ol>`
+    : `<div class="summary-formula">${escapeHtml(translateSummaryTerms(visual.formula || ""))}</div>`;
+  return `<aside class="summary-visual">
+    <p class="meta">${escapeHtml(translateSummaryTerms(visual.label))}</p>
+    ${content}
+    ${visual.note ? `<p>${escapeHtml(translateSummaryTerms(visual.note))}</p>` : ""}
+  </aside>`;
+}
+
 function renderSummary() {
   const pack = currentSummary();
   if (!pack || !el.overlay) return;
@@ -409,10 +421,13 @@ function renderSummary() {
   el.summaryBody.innerHTML = pack.hoofdstukken
     .map(
       (h, i) =>
-        `<article class="summary-chapter" id="summary-chapter-${i}">
-          <h3>${i + 1}. ${escapeHtml(translateSummaryTerms(h.titel))}</h3>
-          ${h.tekst.map((p) => `<p>${escapeHtml(translateSummaryTerms(p))}</p>`).join("")}
-          <ul>${h.kern.map((k) => `<li>${escapeHtml(translateSummaryTerms(k))}</li>`).join("")}</ul>
+        `<article class="summary-chapter${h.visual ? " has-visual" : ""}" id="summary-chapter-${i}">
+          <div class="summary-chapter-main">
+            <h3>${i + 1}. ${escapeHtml(translateSummaryTerms(h.titel))}</h3>
+            ${h.tekst.map((p) => `<p>${escapeHtml(translateSummaryTerms(p))}</p>`).join("")}
+            <ul>${h.kern.map((k) => `<li>${escapeHtml(translateSummaryTerms(k))}</li>`).join("")}</ul>
+          </div>
+          ${renderSummaryVisual(h.visual)}
         </article>`
     )
     .join("");

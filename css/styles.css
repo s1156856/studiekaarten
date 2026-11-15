@@ -475,9 +475,21 @@ button:disabled {
 }
 
 .summary-chapter {
+  display: grid;
+  align-items: start;
+  grid-template-columns: 1fr;
   scroll-margin-top: 12px;
   padding: 18px 0;
   border-top: 1px solid var(--line);
+}
+
+.summary-chapter.has-visual {
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 28%);
+  gap: 20px;
+}
+
+.summary-chapter-main {
+  min-width: 0;
 }
 
 .summary-chapter h3 {
@@ -507,6 +519,42 @@ button:disabled {
   font-size: 0.82rem;
 }
 
+.summary-visual {
+  align-self: start;
+  padding: 14px;
+  background: #f3eddf;
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+}
+
+.summary-visual .meta {
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+
+.summary-visual > p:last-child {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.summary-formula {
+  overflow-wrap: anywhere;
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.summary-visual ol {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 22px;
+  line-height: 1.4;
+}
+
 @media (max-width: 900px) {
   .summary-overlay {
     top: 192px;
@@ -515,6 +563,15 @@ button:disabled {
   .workspace,
   .board-body {
     grid-template-columns: 1fr;
+  }
+
+  .summary-chapter {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-chapter.has-visual {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .subjects {

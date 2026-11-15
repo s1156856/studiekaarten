@@ -44,7 +44,7 @@ const H3_QUESTIONS = (() => {
       "xi − x̄",
       "β1 / SE(β1)",
     ], 0),
-    q("h3-09", "basis", "abcd", "In het Advertising-voorbeeld van ISLP is sales:", [
+    q("h3-09", "basis", "abcd", "In het Advertising-voorbeeld is sales:", [
       "Een predictor",
       "De response",
       "De error term alleen",

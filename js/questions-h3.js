@@ -1,0 +1,302 @@
+const H3_QUESTIONS = (() => {
+  const TF = ["Waar", "Niet waar"];
+  const cat = "H3 Linear Regression";
+  function q(id, level, type, prompt, options, answer) {
+    return { id, builtin: true, category: cat, level, type, prompt, options: [...options], answer };
+  }
+
+  return [
+    q("h3-01", "basis", "abcd", "Linear regression is vooral bedoeld om te voorspellen:", [
+      "Een categorische klasse",
+      "Een kwantitatieve response",
+      "Clusters zonder labels",
+      "Alleen afbeeldingen",
+    ], 1),
+    q("h3-02", "basis", "tf", "Simple linear regression gebruikt één predictor X om Y te voorspellen.", TF, 0),
+    q("h3-03", "basis", "abcd", "Het simple linear regression model is:", [
+      "Y ≈ β0 + β1X",
+      "Y ≈ β1 / X",
+      "Y ≈ X²",
+      "Y ≈ 1 / β0",
+    ], 0),
+    q("h3-04", "basis", "abcd", "In Y ≈ β0 + β1X is β0:", [
+      "De slope",
+      "De residual",
+      "De intercept",
+      "De R²",
+    ], 2),
+    q("h3-05", "basis", "abcd", "In Y ≈ β0 + β1X is β1:", [
+      "De intercept",
+      "De slope",
+      "De p-waarde",
+      "De dummy",
+    ], 1),
+    q("h3-06", "basis", "tf", "Een hat-symbool (ˆ) duidt een schatting of voorspelling aan.", TF, 0),
+    q("h3-07", "basis", "abcd", "Least squares kiest β̂0 en β̂1 door te minimaliseren:", [
+      "Het aantal predictors",
+      "De residual sum of squares (RSS)",
+      "De F-statistic",
+      "De correlatie tussen predictors",
+    ], 1),
+    q("h3-08", "basis", "abcd", "De residual ei is:", [
+      "yi − ŷi",
+      "ŷi − β0",
+      "xi − x̄",
+      "β1 / SE(β1)",
+    ], 0),
+    q("h3-09", "basis", "abcd", "In het Advertising-voorbeeld van ISLP is sales:", [
+      "Een predictor",
+      "De response",
+      "De error term alleen",
+      "Een dummy variabele",
+    ], 1),
+    q("h3-10", "basis", "abcd", "Synergy in marketing heet in de statistiek:", [
+      "Collineariteit",
+      "Leverage",
+      "Interaction",
+      "Cross-validation",
+    ], 2),
+    q("h3-11", "basis", "tf", "Linear regression is een vorm van supervised learning.", TF, 0),
+    q("h3-12", "basis", "abcd", "Multiple linear regression verschilt van simple linear regression doordat:", [
+      "Y categorisch moet zijn",
+      "Er meerdere predictors zijn",
+      "Least squares niet meer geldt",
+      "Er geen intercept is",
+    ], 1),
+    q("h3-13", "basis", "abcd", "R² ligt altijd:", [
+      "Tussen −∞ en ∞",
+      "Tussen 0 en 1",
+      "Alleen bij 0 of 1",
+      "Boven 1",
+    ], 1),
+    q("h3-14", "basis", "abcd", "Een kleine p-waarde bij een coefficient betekent grofweg:", [
+      "Geen verband",
+      "Bewijs voor een associatie tussen predictor en response",
+      "Dat R² negatief is",
+      "Dat we meer data moeten weggooien",
+    ], 1),
+    q("h3-15", "basis", "tf", "Typische cutoffs om H0 te verwerpen zijn p = 0,05 of p = 0,01.", TF, 0),
+    q("h3-16", "basis", "abcd", "Een kwalitatieve predictor met twee niveaus coderen we meestal als:", [
+      "Een F-statistic",
+      "Een dummy / indicator variabele",
+      "KNN",
+      "PCA",
+    ], 1),
+    q("h3-17", "basis", "abcd", "In machine learning heet dummy-codering ook:", [
+      "Bagging",
+      "One-hot encoding",
+      "Boosting",
+      "Dropout",
+    ], 1),
+    q("h3-18", "basis", "tf", "Linear regression is vooral een classificatiemethode.", TF, 1),
+    q("h3-19", "basis", "abcd", "RSS is de som van:", [
+      "Absolute residuals",
+      "Kwadraten van residuals",
+      "p-waarden",
+      "t-statistics",
+    ], 1),
+    q("h3-20", "basis", "abcd", "Welke vraag hoort bij inference in het Advertising-voorbeeld?", [
+      "Welke media hangen samen met sales?",
+      "Hoe compileer ik Python?",
+      "Hoeveel RAM heeft het model?",
+      "Welke kleur heeft de scatterplot?",
+    ], 0),
+
+    q("h3-21", "gemiddeld", "abcd", "De t-statistic voor β̂1 is:", [
+      "β̂1 / SE(β̂1)",
+      "RSS / TSS",
+      "n − p − 1",
+      "RSE²",
+    ], 0),
+    q("h3-22", "gemiddeld", "abcd", "In simple linear regression is de null hypothesis meestal:", [
+      "β0 = 1",
+      "β1 = 0 (geen lineair verband)",
+      "R² = 1",
+      "RSS = 0",
+    ], 1),
+    q("h3-23", "gemiddeld", "abcd", "De residual standard error (RSE) schat:", [
+      "β1",
+      "De standaarddeviatie σ van de errors",
+      "De p-waarde",
+      "Het aantal dummy's",
+    ], 1),
+    q("h3-24", "gemiddeld", "abcd", "R² is gelijk aan:", [
+      "RSS / TSS",
+      "1 − RSS / TSS",
+      "TSS + RSS",
+      "F / n",
+    ], 1),
+    q("h3-25", "gemiddeld", "tf", "Bij simple linear regression geldt R² = r² (kwadraat van de correlatie).", TF, 0),
+    q("h3-26", "gemiddeld", "abcd", "De F-statistic in multiple regression toetst:", [
+      "Of precies één dummy significant is",
+      "H0: β1 = β2 = … = βp = 0",
+      "Of KNN beter is",
+      "Of n groter is dan p",
+    ], 1),
+    q("h3-27", "gemiddeld", "abcd", "Als er geen verband is tussen Y en de predictors, verwachten we dat F ongeveer:", [
+      "0 is",
+      "1 is",
+      "n is",
+      "Oneindig is",
+    ], 1),
+    q("h3-28", "gemiddeld", "abcd", "In het Advertising multiple regression model was newspaper:", [
+      "Zeer significant, p ≈ 0",
+      "Niet significant, p ≈ 0,86",
+      "De enige predictor",
+      "Negatief R²",
+    ], 1),
+    q("h3-29", "gemiddeld", "abcd", "Newspaper leek in simple regression significant omdat:", [
+      "Newspaper de ware oorzaak van sales is",
+      "Newspaper samenhangt met radio (surrogaat)",
+      "TV ontbreekt in de dataset",
+      "RSE negatief is",
+    ], 1),
+    q("h3-30", "gemiddeld", "tf", "R² op de trainingsdata stijgt altijd als je een extra predictor toevoegt.", TF, 0),
+    q("h3-31", "gemiddeld", "abcd", "RSE kan toenemen na toevoegen van een nutteloze predictor omdat:", [
+      "RSS altijd stijgt",
+      "De noemer n − p − 1 daalt terwijl RSS nauwelijks daalt",
+      "R² dan negatief wordt",
+      "Least squares stopt",
+    ], 1),
+    q("h3-32", "gemiddeld", "abcd", "Een prediction interval is vergeleken met een confidence interval voor het gemiddelde:", [
+      "Altijd smaller",
+      "Altijd wijder (bevat ook irreducible error)",
+      "Precies even breed",
+      "Alleen voor classificatie",
+    ], 1),
+    q("h3-33", "gemiddeld", "abcd", "Een qualitative predictor met 3 niveaus krijgt meestal:", [
+      "3 dummy's plus intercept zonder restrictie",
+      "2 dummy's (één minder dan het aantal niveaus)",
+      "Geen dummy's",
+      "Precies 3 intercepts",
+    ], 1),
+    q("h3-34", "gemiddeld", "abcd", "Het niveau zonder dummy heet:", [
+      "De RSE",
+      "De baseline / reference category",
+      "De F-statistic",
+      "Het residual",
+    ], 1),
+    q("h3-35", "gemiddeld", "tf", "Backward selection kan niet als p > n; forward selection wel.", TF, 0),
+    q("h3-36", "gemiddeld", "abcd", "Het hierarchical principle zegt grofweg:", [
+      "Gooi altijd de intercept weg",
+      "Als je een interactie opneemt, houd je ook de main effects",
+      "Gebruik alleen KNN",
+      "R² mag nooit stijgen",
+    ], 1),
+    q("h3-37", "gemiddeld", "abcd", "Polynomial regression (Y ~ X + X²) is nog steeds een lineair model omdat:", [
+      "Y categorisch is",
+      "Het lineair is in de parameters β",
+      "X verwijderd wordt",
+      "RSS niet bestaat",
+    ], 1),
+    q("h3-38", "gemiddeld", "abcd", "Heteroscedasticity betekent:", [
+      "Constante error-variantie",
+      "Niet-constante variantie van de errors",
+      "Perfecte collineariteit",
+      "R² = 1",
+    ], 1),
+    q("h3-39", "gemiddeld", "abcd", "Collineariteit maakt coefficient-schattingen vaak:", [
+      "Stabieler en smaller",
+      "Onstabiel, met grote standard errors",
+      "Altijd 0",
+      "Gelijk aan R²",
+    ], 1),
+    q("h3-40", "gemiddeld", "tf", "Een confidence interval gaat over f(X) (gemiddelde); een prediction interval over een individuele Y.", TF, 0),
+
+    q(
+      "h3-41",
+      "moeilijk",
+      "abcd",
+      "Welke uitspraken zijn juist?\nA. F ≈ 1 past bij geen verband\nB. R² daalt altijd bij extra predictors\nC. Prediction intervals zijn wijder dan CI’s\nD. Newspaper was niet significant in het multiple model",
+      ["A+C+D", "A+B", "B+C", "Alles"],
+      0
+    ),
+    q("h3-42", "moeilijk", "abcd", "IJsverkoop en haaienaanvallen correleren positief. Multiple regression met temperatuur laat zien dat ijsverkoop:", [
+      "De echte oorzaak is",
+      "Vaak niet meer significant is na correctie voor temperatuur",
+      "R² onmogelijk maakt",
+      "Een dummy met 4 niveaus is",
+    ], 1),
+    q("h3-43", "moeilijk", "abcd", "VIF (variance inflation factor) detecteert vooral:", [
+      "Outliers in Y",
+      "Collineariteit tussen predictors",
+      "Of Y kwantitatief is",
+      "Het aantal folds",
+    ], 1),
+    q("h3-44", "moeilijk", "abcd", "Een high-leverage point is vooral:", [
+      "Een punt met een ongewoon x-patroon",
+      "Altijd een outlier in Y",
+      "Een dummy",
+      "F = 1",
+    ], 0),
+    q("h3-45", "moeilijk", "abcd", "Een interactieterm TV × radio in het sales-model betekent:", [
+      "TV en radio mogen nooit samen",
+      "Het effect van TV op sales hangt af van radio (synergie)",
+      "R² moet 0 zijn",
+      "Alleen classificatie",
+    ], 1),
+    q(
+      "h3-46",
+      "moeilijk",
+      "abcd",
+      "Welke zijn waar over dummy's?\nA. Twee niveaus → één dummy volstaat\nB. Drie niveaus → twee dummy's\nC. Codering 0/1 vs 1/0 verandert de fit niet wezenlijk\nD. Je hebt altijd evenveel dummy's als niveaus plus intercept zonder baseline",
+      ["A+B+C", "Alleen D", "B+D", "Alles"],
+      0
+    ),
+    q("h3-47", "moeilijk", "abcd", "Vergeleken met linear regression is KNN:", [
+      "Parametrisch en minder flexibel",
+      "Non-parametrisch en doorgaans flexibeler",
+      "Alleen voor RSS-minimalisatie van β",
+      "Onbruikbaar bij regressie",
+    ], 1),
+    q("h3-48", "moeilijk", "abcd", "KNN presteert relatief slechter als p groot is door:", [
+      "De F-statistic",
+      "De curse of dimensionality",
+      "Te kleine RSE-definitie",
+      "Verplichte dummy's",
+    ], 1),
+    q("h3-49", "moeilijk", "abcd", "Linear regression wint vaak van KNN als:", [
+      "De echte f sterk niet-lineair is en n klein, p groot",
+      "De ware relatie ongeveer lineair is",
+      "Er geen trainingdata is",
+      "Y een label met 50 klassen is",
+    ], 1),
+    q("h3-50", "moeilijk", "abcd", "Voor simple linear regression heeft de t-statistic onder H0 bij benadering:", [
+      "n − 2 vrijheidsgraden",
+      "p vrijheidsgraden",
+      "Oneindig minus R²",
+      "Altijd 1 vrijheidsgraad",
+    ], 0),
+
+    q("h3-51", "moeilijk", "tf", "Least squares minimaliseert de RSS.", TF, 0),
+    q("h3-52", "moeilijk", "tf", "R² op de trainingsset daalt altijd als je een extra predictor toevoegt.", TF, 1),
+    q("h3-53", "moeilijk", "tf", "Een F-statistic rond 1 past bij geen verband tussen Y en de predictors.", TF, 0),
+    q("h3-54", "moeilijk", "tf", "Een factor met 3 niveaus codeer je standaard met 3 dummy's én een intercept, zonder baseline te droppen.", TF, 1),
+    q("h3-55", "moeilijk", "tf", "Een prediction interval is smaller dan het bijbehorende confidence interval voor het gemiddelde.", TF, 1),
+    q("h3-56", "moeilijk", "tf", "Interaction is de statistische naam voor synergy.", TF, 0),
+    q("h3-57", "moeilijk", "tf", "In multiple regression is βj het effect van Xj, holding other predictors fixed.", TF, 0),
+    q("h3-58", "moeilijk", "tf", "Linear regression is unsupervised learning.", TF, 1),
+    q("h3-59", "moeilijk", "tf", "Outliers en high-leverage points kunnen least squares sterk beïnvloeden.", TF, 0),
+    q("h3-60", "moeilijk", "tf", "KNN is een parametrische methode met een vast β-vector.", TF, 1),
+  ];
+})();
+
+const H3_EXAM_FOCUS = [
+  "Simple linear regression",
+  "Least squares / RSS",
+  "Intercept β0 en slope β1",
+  "Residual en RSE",
+  "t-statistic en p-waarde",
+  "H0: β1 = 0",
+  "R²",
+  "Multiple linear regression",
+  "F-statistic",
+  "Forward / backward / mixed selection",
+  "Dummy variabele / baseline",
+  "Interaction / synergy",
+  "Hierarchical principle",
+  "Collineariteit / VIF",
+  "Outlier vs leverage",
+  "Confidence vs prediction interval",
+  "KNN vs linear regression",
+];

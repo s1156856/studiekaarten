@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flashcards — Teunissen</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <div class="subjects">
+        <button class="btn" id="subject-ml" type="button">Machine learning</button>
+        <button class="btn secondary" id="subject-next" type="button" disabled aria-label="Toekomstig onderwerp"></button>
+      </div>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Studiekaarten</p>
+          <h1>Flashcards</h1>
+        </div>
+        <p class="meta" id="app-mode">Start</p>
+      </header>
+
+      <div class="workspace">
+        <aside class="sidebar card">
+          <label>
+            Hoofdstuk
+            <select id="home-category"></select>
+          </label>
+          <div>
+            <p class="meta">Niveau</p>
+            <div class="size-pills row" id="level-pills">
+              <button class="btn secondary" data-level="basis" type="button">Basis</button>
+              <button class="btn secondary" data-level="gemiddeld" type="button">Gemiddeld</button>
+              <button class="btn secondary" data-level="moeilijk" type="button">Moeilijk</button>
+            </div>
+          </div>
+          <p class="meta" id="session-meta"></p>
+          <button class="btn" id="start-session" type="button">Start sessie</button>
+          <div>
+            <h2 id="focus-title">Examenfocus</h2>
+            <ul class="focus-list" id="focus-list"></ul>
+          </div>
+        </aside>
+
+        <section class="board card" id="board">
+          <div class="board-top">
+            <p class="meta" id="status-left">Nog geen sessie</p>
+            <p class="meta" id="status-right">Cijfer: —</p>
+          </div>
+          <div class="progress"><span id="progress-bar"></span></div>
+          <div class="board-body">
+            <div class="play">
+              <div class="quiz-head">
+                <div class="question-wrap">
+                  <p class="badge" id="q-badge">—</p>
+                  <p class="question-text" id="q-text">Start een sessie om vragen te oefenen.</p>
+                </div>
+                <button class="help-btn" id="toggle-help" type="button" aria-label="Begrippen uitleggen" disabled>?</button>
+              </div>
+              <div class="choices" id="choices">
+                <button class="choice" data-slot="0" type="button" disabled>—</button>
+                <button class="choice" data-slot="1" type="button" disabled>—</button>
+                <button class="choice" data-slot="2" type="button" disabled>—</button>
+                <button class="choice" data-slot="3" type="button" disabled>—</button>
+              </div>
+              <p class="feedback" id="feedback">Kies een antwoord.</p>
+            </div>
+            <aside class="help-panel" id="help-panel">
+              <h3>Begrippen</h3>
+              <div class="help-body" id="help-body">
+                <p class="meta">Druk op ? bij een vraag voor uitleg van termen en afkortingen.</p>
+              </div>
+            </aside>
+          </div>
+          <div class="quiz-actions">
+            <button class="btn ghost" id="btn-stop" type="button" disabled>Stoppen</button>
+            <button class="btn" id="btn-next" type="button" disabled>Volgende</button>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="js/vragen-pack.js"></script>
+    <script src="js/begrippen.js"></script>
+    <script src="js/questions-h1.js"></script>
+    <script src="js/questions-h3.js"></script>
+    <script src="js/vragen-h1-h6.js"></script>
+    <script src="js/vragen-h5-h9.js"></script>
+    <script src="js/vragen-h9-h13.js"></script>
+    <script src="js/vragen-extra-h1-h6.js"></script>
+    <script src="js/vragen-extra-h7-h13.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

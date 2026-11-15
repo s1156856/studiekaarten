@@ -45,7 +45,7 @@ body {
 
 .subjects {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 8px;
   margin-bottom: 16px;
   min-height: 48px;
@@ -56,6 +56,10 @@ body {
 }
 
 .topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 20px;
   min-height: 72px;
 }
@@ -398,9 +402,113 @@ button:disabled {
   min-height: 48px;
 }
 
+.summary-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  padding: 20px 16px;
+  background: rgba(28, 25, 20, 0.4);
+}
+
+.summary-overlay[hidden] {
+  display: none;
+}
+
+.summary-sheet {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.summary-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  flex: 0 0 auto;
+}
+
+.summary-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 14px;
+  flex: 0 0 auto;
+}
+
+.summary-nav button {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #efe8d8;
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.summary-nav button.is-active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.summary-body {
+  overflow: auto;
+  min-height: 0;
+  padding: 0 8px 20px 0;
+  scroll-padding-top: 12px;
+  overscroll-behavior: contain;
+}
+
+.summary-chapter {
+  scroll-margin-top: 12px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+}
+
+.summary-chapter h3 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.summary-chapter p {
+  margin: 0 0 8px;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.summary-chapter ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.summary-chapter li {
+  background: #efe8d8;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.82rem;
+}
+
 @media (max-width: 900px) {
   .workspace,
   .board-body {
+    grid-template-columns: 1fr;
+  }
+
+  .subjects {
     grid-template-columns: 1fr;
   }
 

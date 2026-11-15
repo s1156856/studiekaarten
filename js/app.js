@@ -10,30 +10,45 @@ const LEVELS = {
   moeilijk: "Moeilijk",
 };
 
-const SESSION_SIZE = 20;
+const SESSION_SIZES = { ml: 50, ds: 20, bigo: 20 };
+const ALL_CHAPTERS = "Alle hoofdstukken";
+
+const SUBJECTS = {
+  ml: { id: "ml", label: "Machine learning", fallback: ALL_CHAPTERS },
+  ds: { id: "ds", label: "Datastructuren", fallback: ALL_CHAPTERS },
+  bigo: { id: "bigo", label: "Big-O", fallback: ALL_CHAPTERS },
+};
+
+function tagSubject(list, subject) {
+  return (list || []).map((q) => ({ ...q, subject }));
+}
 
 const QUESTIONS = [
-  ...(typeof H1_QUESTIONS !== "undefined" ? H1_QUESTIONS : []),
-  ...(typeof H2_QUESTIONS !== "undefined" ? H2_QUESTIONS : []),
-  ...(typeof H3_QUESTIONS !== "undefined" ? H3_QUESTIONS : []),
-  ...(typeof H4_QUESTIONS !== "undefined" ? H4_QUESTIONS : []),
-  ...(typeof H5_QUESTIONS !== "undefined" ? H5_QUESTIONS : []),
-  ...(typeof H6_QUESTIONS !== "undefined" ? H6_QUESTIONS : []),
-  ...(typeof H7_QUESTIONS !== "undefined" ? H7_QUESTIONS : []),
-  ...(typeof H8_QUESTIONS !== "undefined" ? H8_QUESTIONS : []),
-  ...(typeof H9_QUESTIONS !== "undefined" ? H9_QUESTIONS : []),
-  ...(typeof H10_QUESTIONS !== "undefined" ? H10_QUESTIONS : []),
-  ...(typeof H11_QUESTIONS !== "undefined" ? H11_QUESTIONS : []),
-  ...(typeof H12_QUESTIONS !== "undefined" ? H12_QUESTIONS : []),
-  ...(typeof H13_QUESTIONS !== "undefined" ? H13_QUESTIONS : []),
+  ...tagSubject(typeof H1_QUESTIONS !== "undefined" ? H1_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof H2_QUESTIONS !== "undefined" ? H2_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof H3_QUESTIONS !== "undefined" ? H3_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof H4_QUESTIONS !== "undefined" ? H4_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof H5_QUESTIONS !== "undefined" ? H5_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof H6_QUESTIONS !== "undefined" ? H6_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof H7_QUESTIONS !== "undefined" ? H7_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof H8_QUESTIONS !== "undefined" ? H8_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof H9_QUESTIONS !== "undefined" ? H9_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof H10_QUESTIONS !== "undefined" ? H10_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof H11_QUESTIONS !== "undefined" ? H11_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof H12_QUESTIONS !== "undefined" ? H12_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof H13_QUESTIONS !== "undefined" ? H13_QUESTIONS : [], "ml"),
+  ...tagSubject(typeof DS_VRAGEN !== "undefined" ? DS_VRAGEN : [], "ds"),
+  ...tagSubject(typeof BIGO_VRAGEN !== "undefined" ? BIGO_VRAGEN : [], "bigo"),
 ];
 
 const state = {
   view: "home",
-  category: "H2 Statistical Learning",
+  subject: "ml",
+  category: ALL_CHAPTERS,
   level: "basis",
   quiz: null,
   helpOpen: false,
+  summaryChapter: 0,
 };
 
 const el = {
@@ -54,18 +69,48 @@ const el = {
   stop: document.getElementById("btn-stop"),
   next: document.getElementById("btn-next"),
   slots: [...document.querySelectorAll("[data-slot]")],
+  overlay: document.getElementById("summary-overlay"),
+  summaryTitle: document.getElementById("summary-title"),
+  summaryNav: document.getElementById("summary-nav"),
+  summaryBody: document.getElementById("summary-body"),
 };
 
 function chapters() {
-  return [...new Set(QUESTIONS.map((q) => q.category).filter(Boolean))].sort((a, b) => {
-    const na = Number((a.match(/^H(\d+)/) || [0, 99])[1]);
-    const nb = Number((b.match(/^H(\d+)/) || [0, 99])[1]);
-    return na - nb;
-  });
+  const available = [...new Set(QUESTIONS.filter((q) => q.subject === state.subject).map((q) => q.category).filter(Boolean))].sort(
+    (a, b) => {
+      const na = Number((a.match(/^H(\d+)/) || [0, 99])[1]);
+      const nb = Number((b.match(/^H(\d+)/) || [0, 99])[1]);
+      return na - nb;
+    }
+  );
+  return [ALL_CHAPTERS, ...available];
 }
 
 function filteredQuestions() {
-  return QUESTIONS.filter((q) => q.category === state.category && q.level === state.level);
+  return QUESTIONS.filter(
+    (q) =>
+      q.subject === state.subject &&
+      (state.category === ALL_CHAPTERS || q.category === state.category) &&
+      q.level === state.level
+  );
+}
+
+function sessionSize() {
+  if (state.subject === "ml" && state.category !== ALL_CHAPTERS) return 20;
+  return SESSION_SIZES[state.subject] || 20;
+}
+
+function hasQuestionsForLevel(level) {
+  return QUESTIONS.some(
+    (q) =>
+      q.subject === state.subject &&
+      (state.category === ALL_CHAPTERS || q.category === state.category) &&
+      q.level === level
+  );
+}
+
+function currentSummary() {
+  return typeof SAMENVATTINGEN !== "undefined" ? SAMENVATTINGEN[state.subject] : null;
 }
 
 function levelLabel(level) {
@@ -128,8 +173,13 @@ function fillChapters() {
 }
 
 function renderFocus() {
-  const items = typeof HOOFDSTUK_FOCUS !== "undefined" ? HOOFDSTUK_FOCUS[state.category] || [] : [];
-  el.focusTitle.textContent = `Examenfocus ${state.category.split(" ")[0]}`;
+  const allChapters = state.category === ALL_CHAPTERS;
+  const items = allChapters
+    ? ["Vragen uit alle hoofdstukken"]
+    : typeof HOOFDSTUK_FOCUS !== "undefined"
+      ? HOOFDSTUK_FOCUS[state.category] || []
+      : [];
+  el.focusTitle.textContent = allChapters ? "Oefenmix" : `Examenfocus ${state.category.split(" ")[0]}`;
   el.focusList.innerHTML = items.map((term) => `<li>${escapeHtml(term)}</li>`).join("");
 }
 
@@ -176,6 +226,10 @@ function renderChoices(question, selected, answered) {
 }
 
 function render() {
+  if (!hasQuestionsForLevel(state.level)) {
+    const availableLevel = Object.keys(LEVELS).find(hasQuestionsForLevel);
+    if (availableLevel) state.level = availableLevel;
+  }
   const pool = filteredQuestions();
   const max = pool.length;
   const busy = state.view === "quiz";
@@ -185,11 +239,17 @@ function render() {
 
   el.category.value = state.category;
   setDisabled(el.category, busy);
-  document.querySelectorAll("[data-level]").forEach((btn) => {
-    btn.classList.toggle("is-active", btn.dataset.level === state.level);
+  document.querySelectorAll("[data-subject]").forEach((btn) => {
+    const active = btn.dataset.subject === state.subject;
+    btn.classList.toggle("secondary", !active);
+    btn.classList.toggle("is-active", active);
     setDisabled(btn, busy);
   });
-  el.sessionMeta.textContent = `${Math.min(SESSION_SIZE, max)} vragen per sessie · ${max} beschikbaar op dit niveau.`;
+  document.querySelectorAll("[data-level]").forEach((btn) => {
+    btn.classList.toggle("is-active", btn.dataset.level === state.level);
+    setDisabled(btn, busy || !hasQuestionsForLevel(btn.dataset.level));
+  });
+  el.sessionMeta.textContent = `${Math.min(sessionSize(), max)} vragen per sessie · ${max} beschikbaar op dit niveau.`;
   setDisabled(el.start, busy || !max);
   el.start.textContent = busy ? "Sessie bezig" : "Start sessie";
   renderFocus();
@@ -273,7 +333,7 @@ function startSession() {
   if (el.start.disabled) return;
   const pool = shuffle(filteredQuestions());
   if (!pool.length) return;
-  const target = Math.min(SESSION_SIZE, pool.length);
+  const target = Math.min(sessionSize(), pool.length);
   state.helpOpen = false;
   state.quiz = {
     target,
@@ -334,7 +394,77 @@ function escapeAttr(value) {
   return escapeHtml(value).replaceAll("'", "&#39;");
 }
 
+function renderSummary() {
+  const pack = currentSummary();
+  if (!pack || !el.overlay) return;
+  el.summaryTitle.textContent = translateSummaryTerms(pack.titel);
+  el.summaryNav.innerHTML = pack.hoofdstukken
+    .map(
+      (h, i) =>
+        `<button type="button" data-summary-chapter="${i}" class="${i === state.summaryChapter ? "is-active" : ""}">${i + 1}</button>`
+    )
+    .join("");
+  el.summaryBody.innerHTML = pack.hoofdstukken
+    .map(
+      (h, i) =>
+        `<article class="summary-chapter" id="summary-chapter-${i}">
+          <h3>${i + 1}. ${escapeHtml(translateSummaryTerms(h.titel))}</h3>
+          ${h.tekst.map((p) => `<p>${escapeHtml(translateSummaryTerms(p))}</p>`).join("")}
+          <ul>${h.kern.map((k) => `<li>${escapeHtml(translateSummaryTerms(k))}</li>`).join("")}</ul>
+        </article>`
+    )
+    .join("");
+}
+
+function openSummary() {
+  state.summaryChapter = 0;
+  renderSummary();
+  el.overlay.hidden = false;
+  jumpToSummaryChapter(0, false);
+}
+
+function closeSummary() {
+  el.overlay.hidden = true;
+}
+
+function jumpToSummaryChapter(index, smooth = true) {
+  state.summaryChapter = Number(index);
+  el.summaryNav.querySelectorAll("[data-summary-chapter]").forEach((btn) => {
+    btn.classList.toggle("is-active", Number(btn.dataset.summaryChapter) === state.summaryChapter);
+  });
+  const node = document.getElementById(`summary-chapter-${state.summaryChapter}`);
+  if (node) node.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
+}
+
+function setSubject(id) {
+  if (!SUBJECTS[id] || id === state.subject || state.view === "quiz") return;
+  state.subject = id;
+  const available = chapters();
+  state.category = available.includes(SUBJECTS[id].fallback) ? SUBJECTS[id].fallback : available[0] || "";
+  fillChapters();
+  render();
+}
+
 document.addEventListener("click", (event) => {
+  const subject = event.target.closest("[data-subject]");
+  if (subject) {
+    if (subject.disabled) return;
+    setSubject(subject.dataset.subject);
+    return;
+  }
+  if (event.target.closest("#open-summary")) {
+    openSummary();
+    return;
+  }
+  if (event.target.closest("#close-summary") || event.target === el.overlay) {
+    closeSummary();
+    return;
+  }
+  const summaryChapter = event.target.closest("[data-summary-chapter]");
+  if (summaryChapter) {
+    jumpToSummaryChapter(summaryChapter.dataset.summaryChapter);
+    return;
+  }
   const level = event.target.closest("[data-level]");
   if (level) {
     if (level.disabled) return;
@@ -362,6 +492,10 @@ el.category.addEventListener("change", () => {
   if (el.category.disabled) return;
   state.category = el.category.value;
   render();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && el.overlay && !el.overlay.hidden) closeSummary();
 });
 
 fillChapters();

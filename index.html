@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Flashcards — Teunissen</title>
+    <title>Flashcards</title>
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,11 +15,12 @@
   <body>
     <div class="app">
       <div class="subjects">
-        <button class="btn" id="subject-ml" type="button">Machine learning</button>
-        <button class="btn secondary" id="subject-next" type="button" disabled aria-label="Toekomstig onderwerp"></button>
+        <button class="btn" data-subject="ml" type="button">Machine learning</button>
+        <button class="btn secondary" data-subject="ds" type="button">Datastructuren</button>
+        <button class="btn secondary" data-subject="bigo" type="button">Big-O</button>
       </div>
       <header class="topbar">
-        <h1>Flashcards</h1>
+        <button class="btn secondary" id="open-summary" type="button">Samenvatting</button>
       </header>
 
       <div class="workspace">
@@ -81,7 +82,19 @@
         </section>
       </div>
     </div>
+    <div class="summary-overlay" id="summary-overlay" hidden>
+      <div class="summary-sheet card">
+        <div class="summary-head">
+          <h2 id="summary-title">Samenvatting</h2>
+          <button class="btn ghost" id="close-summary" type="button">Sluiten</button>
+        </div>
+        <nav class="summary-nav" id="summary-nav" aria-label="Hoofdstukken"></nav>
+        <div class="summary-body" id="summary-body"></div>
+      </div>
+    </div>
     <script src="js/vragen-pack.js"></script>
+    <script src="js/samenvattingen.js"></script>
+    <script src="js/vragen-ds-bigo.js"></script>
     <script src="js/begrippen.js"></script>
     <script src="js/questions-h1.js"></script>
     <script src="js/questions-h3.js"></script>

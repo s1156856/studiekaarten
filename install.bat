@@ -1,15 +1,48 @@
 @echo off
 setlocal
-cd /d "%~dp0"
+set "SOURCE=%~dp0"
 set "DEST=%LOCALAPPDATA%\Studiekaarten"
-mkdir "%DEST%" 2>nul
-mkdir "%DEST%\css" 2>nul
-mkdir "%DEST%\js" 2>nul
-copy /Y "%~dp0index.html" "%DEST%\index.html" >nul
-copy /Y "%~dp0start.bat" "%DEST%\start.bat" >nul
-copy /Y "%~dp0install.bat" "%DEST%\install.bat" >nul
-xcopy /E /I /Y "%~dp0css" "%DEST%\css" >nul
-xcopy /E /I /Y "%~dp0js" "%DEST%\js" >nul
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$desk=[Environment]::GetFolderPath('Desktop'); $s=(New-Object -ComObject WScript.Shell).CreateShortcut((Join-Path $desk 'Studiekaarten.lnk')); $s.TargetPath=(Join-Path $env:LOCALAPPDATA 'Studiekaarten\start.bat'); $s.WorkingDirectory=(Join-Path $env:LOCALAPPDATA 'Studiekaarten'); $s.Save()"
+
+if not defined LOCALAPPDATA goto :missing_localappdata
+if not exist "%DEST%" mkdir "%DEST%"
+if errorlevel 1 goto :install_failed
+
+copy /Y "%SOURCE%index.html" "%DEST%\index.html" >nul
+if errorlevel 1 goto :install_failed
+copy /Y "%SOURCE%start.bat" "%DEST%\start.bat" >nul
+if errorlevel 1 goto :install_failed
+copy /Y "%SOURCE%install.bat" "%DEST%\install.bat" >nul
+if errorlevel 1 goto :install_failed
+
+robocopy "%SOURCE%css" "%DEST%\css" /E /R:2 /W:1 /NFL /NDL /NJH /NJS /NC /NS >nul
+if errorlevel 8 goto :install_failed
+robocopy "%SOURCE%js" "%DEST%\js" /E /R:2 /W:1 /NFL /NDL /NJH /NJS /NC /NS >nul
+if errorlevel 8 goto :install_failed
+
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$desktop=[Environment]::GetFolderPath('Desktop'); $shortcut=(New-Object -ComObject WScript.Shell).CreateShortcut((Join-Path $desktop 'Studiekaarten.lnk')); $shortcut.TargetPath=(Join-Path $env:LOCALAPPDATA 'Studiekaarten\start.bat'); $shortcut.WorkingDirectory=(Join-Path $env:LOCALAPPDATA 'Studiekaarten'); $shortcut.Save()"
+if errorlevel 1 goto :shortcut_failed
+
+echo Studiekaarten is geinstalleerd in:
+echo %DEST%
+echo De app wordt nu geopend.
 start "" "%DEST%\index.html"
+exit /b 0
+
+:missing_localappdata
+echo Fout: de lokale appmap van Windows kon niet worden gevonden.
+pause
+exit /b 1
+
+:install_failed
+echo Fout: niet alle appbestanden konden worden gekopieerd naar:
+echo %DEST%
+pause
+exit /b 1
+
+:shortcut_failed
+echo De appbestanden zijn gekopieerd, maar de bureaubladsnelkoppeling kon niet worden gemaakt.
+echo Je kunt de app openen via:
+echo %DEST%\index.html
+pause
+exit /b 1
 endlocal

@@ -52,7 +52,6 @@ const state = {
 };
 
 const el = {
-  app: document.querySelector(".app"),
   category: document.getElementById("home-category"),
   sessionMeta: document.getElementById("session-meta"),
   start: document.getElementById("start-session"),
@@ -423,14 +422,12 @@ function openSummary() {
   state.summaryChapter = 0;
   renderSummary();
   el.overlay.hidden = false;
-  el.app.inert = true;
   jumpToSummaryChapter(0, false);
   el.closeSummary.focus();
 }
 
 function closeSummary() {
   el.overlay.hidden = true;
-  el.app.inert = false;
   el.openSummary.focus();
 }
 
@@ -444,12 +441,17 @@ function jumpToSummaryChapter(index, smooth = true) {
 }
 
 function setSubject(id) {
-  if (!SUBJECTS[id] || id === state.subject || state.view === "quiz" || !el.overlay.hidden) return;
+  if (!SUBJECTS[id] || id === state.subject || state.view === "quiz") return;
   state.subject = id;
   const available = chapters();
   state.category = available.includes(SUBJECTS[id].fallback) ? SUBJECTS[id].fallback : available[0] || "";
   fillChapters();
   render();
+  if (!el.overlay.hidden) {
+    state.summaryChapter = 0;
+    renderSummary();
+    jumpToSummaryChapter(0, false);
+  }
 }
 
 document.addEventListener("click", (event) => {

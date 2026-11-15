@@ -404,11 +404,16 @@ button:disabled {
 
 .summary-overlay {
   position: fixed;
-  inset: 0;
+  inset: 80px 0 0;
   z-index: 30;
   display: flex;
   padding: 20px 16px;
   background: rgba(28, 25, 20, 0.4);
+}
+
+.subjects {
+  position: relative;
+  z-index: 31;
 }
 
 .summary-overlay[hidden] {
@@ -503,6 +508,10 @@ button:disabled {
 }
 
 @media (max-width: 900px) {
+  .summary-overlay {
+    top: 192px;
+  }
+
   .workspace,
   .board-body {
     grid-template-columns: 1fr;

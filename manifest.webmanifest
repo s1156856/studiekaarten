@@ -1,0 +1,27 @@
+{
+  "id": "./",
+  "name": "Flashcards",
+  "short_name": "Flashcards",
+  "description": "Flashcards voor Machine Learning, Datastructuren en Big-O.",
+  "lang": "nl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f4efe4",
+  "theme_color": "#9a3b2f",
+  "icons": [
+    {
+      "src": "icons/flashcards-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/flashcards-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

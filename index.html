@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Flashcards</title>
+    <meta name="theme-color" content="#9a3b2f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Flashcards" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./icons/flashcards-180.png" />
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -86,6 +91,12 @@
       <div class="summary-sheet card" role="dialog" aria-labelledby="summary-title">
         <div class="summary-head">
           <h2 id="summary-title">Samenvatting</h2>
+          <input class="summary-search" id="summary-search" type="search" placeholder="Zoek in samenvattingen" aria-label="Zoek in samenvattingen" autocomplete="off" />
+          <div class="summary-search-controls" aria-label="Zoekresultaten">
+            <button class="summary-search-arrow" id="summary-search-prev" type="button" aria-label="Vorige treffer" title="Vorige treffer" disabled>↑</button>
+            <span class="summary-search-count" id="summary-search-count" aria-live="polite">0/0</span>
+            <button class="summary-search-arrow" id="summary-search-next" type="button" aria-label="Volgende treffer" title="Volgende treffer" disabled>↓</button>
+          </div>
           <button class="btn ghost" id="close-summary" type="button">Sluiten</button>
         </div>
         <nav class="summary-nav" id="summary-nav" aria-label="Hoofdstukken"></nav>
@@ -104,5 +115,12 @@
     <script src="js/vragen-extra-h1-h6.js"></script>
     <script src="js/vragen-extra-h7-h13.js"></script>
     <script src="js/app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator && location.protocol !== "file:") {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+        });
+      }
+    </script>
   </body>
 </html>

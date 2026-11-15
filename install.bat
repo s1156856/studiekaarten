@@ -13,10 +13,16 @@ copy /Y "%SOURCE%start.bat" "%DEST%\start.bat" >nul
 if errorlevel 1 goto :install_failed
 copy /Y "%SOURCE%install.bat" "%DEST%\install.bat" >nul
 if errorlevel 1 goto :install_failed
+copy /Y "%SOURCE%manifest.webmanifest" "%DEST%\manifest.webmanifest" >nul
+if errorlevel 1 goto :install_failed
+copy /Y "%SOURCE%service-worker.js" "%DEST%\service-worker.js" >nul
+if errorlevel 1 goto :install_failed
 
 robocopy "%SOURCE%css" "%DEST%\css" /E /R:2 /W:1 /NFL /NDL /NJH /NJS /NC /NS >nul
 if errorlevel 8 goto :install_failed
 robocopy "%SOURCE%js" "%DEST%\js" /E /R:2 /W:1 /NFL /NDL /NJH /NJS /NC /NS >nul
+if errorlevel 8 goto :install_failed
+robocopy "%SOURCE%icons" "%DEST%\icons" /E /R:2 /W:1 /NFL /NDL /NJH /NJS /NC /NS >nul
 if errorlevel 8 goto :install_failed
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command "$desktop=[Environment]::GetFolderPath('Desktop'); $shortcut=(New-Object -ComObject WScript.Shell).CreateShortcut((Join-Path $desktop 'Studiekaarten.lnk')); $shortcut.TargetPath=(Join-Path $env:LOCALAPPDATA 'Studiekaarten\start.bat'); $shortcut.WorkingDirectory=(Join-Path $env:LOCALAPPDATA 'Studiekaarten'); $shortcut.Save()"

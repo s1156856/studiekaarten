@@ -72,10 +72,17 @@ const el = {
   overlay: document.getElementById("summary-overlay"),
   openSummary: document.getElementById("open-summary"),
   closeSummary: document.getElementById("close-summary"),
+  summarySearch: document.getElementById("summary-search"),
+  summarySearchPrev: document.getElementById("summary-search-prev"),
+  summarySearchNext: document.getElementById("summary-search-next"),
+  summarySearchCount: document.getElementById("summary-search-count"),
   summaryTitle: document.getElementById("summary-title"),
   summaryNav: document.getElementById("summary-nav"),
   summaryBody: document.getElementById("summary-body"),
 };
+
+let summarySearchMatches = [];
+let summarySearchIndex = -1;
 
 function chapters() {
   const available = [...new Set(QUESTIONS.filter((q) => q.subject === state.subject).map((q) => q.category).filter(Boolean))].sort(
@@ -235,6 +242,7 @@ function render() {
   const pool = filteredQuestions();
   const max = pool.length;
   const busy = state.view === "quiz";
+  document.body.classList.toggle("is-quiz", busy);
   const done = state.view === "result";
   const question = currentQuestion();
   const answered = Boolean(question && state.quiz.queue[0].selected != null);
@@ -433,12 +441,88 @@ function renderSummary() {
     .join("");
 }
 
+function clearSummarySearchHighlights() {
+  el.summaryBody.querySelectorAll("mark.summary-search-hit").forEach((mark) => {
+    mark.replaceWith(document.createTextNode(mark.textContent));
+  });
+  el.summaryBody.normalize();
+}
+
+function updateSummarySearchMatch(index, scroll = true) {
+  summarySearchMatches.forEach((match) => match.classList.remove("is-current"));
+  if (!summarySearchMatches.length) {
+    summarySearchIndex = -1;
+    el.summarySearchCount.textContent = "0/0";
+    el.summarySearchPrev.disabled = true;
+    el.summarySearchNext.disabled = true;
+    return;
+  }
+  summarySearchIndex = (index + summarySearchMatches.length) % summarySearchMatches.length;
+  const currentMatch = summarySearchMatches[summarySearchIndex];
+  currentMatch.classList.add("is-current");
+  el.summarySearchCount.textContent = `${summarySearchIndex + 1}/${summarySearchMatches.length}`;
+  el.summarySearchPrev.disabled = false;
+  el.summarySearchNext.disabled = false;
+  const chapter = currentMatch.closest(".summary-chapter");
+  if (chapter) {
+    state.summaryChapter = Number(chapter.id.replace("summary-chapter-", ""));
+    el.summaryNav.querySelectorAll("[data-summary-chapter]").forEach((button) => {
+      button.classList.toggle("is-active", Number(button.dataset.summaryChapter) === state.summaryChapter);
+    });
+  }
+  if (scroll) currentMatch.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function searchSummaryWords(query) {
+  clearSummarySearchHighlights();
+  summarySearchMatches = [];
+  summarySearchIndex = -1;
+  const needle = query.trim();
+  if (!needle) {
+    updateSummarySearchMatch(-1, false);
+    return;
+  }
+  const escapedNeedle = needle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const pattern = new RegExp(escapedNeedle, "giu");
+  const walker = document.createTreeWalker(el.summaryBody, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      return node.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    },
+  });
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+  textNodes.forEach((textNode) => {
+    const text = textNode.nodeValue;
+    pattern.lastIndex = 0;
+    let match;
+    let previousIndex = 0;
+    const fragment = document.createDocumentFragment();
+    let found = false;
+    while ((match = pattern.exec(text))) {
+      found = true;
+      fragment.append(document.createTextNode(text.slice(previousIndex, match.index)));
+      const highlight = document.createElement("mark");
+      highlight.className = "summary-search-hit";
+      highlight.textContent = match[0];
+      fragment.append(highlight);
+      summarySearchMatches.push(highlight);
+      previousIndex = match.index + match[0].length;
+    }
+    if (found) {
+      fragment.append(document.createTextNode(text.slice(previousIndex)));
+      textNode.replaceWith(fragment);
+    }
+  });
+  updateSummarySearchMatch(0);
+}
+
 function openSummary() {
   state.summaryChapter = 0;
+  el.summarySearch.value = "";
   renderSummary();
   el.overlay.hidden = false;
   jumpToSummaryChapter(0, false);
-  el.closeSummary.focus();
+  el.summarySearch.focus();
 }
 
 function closeSummary() {
@@ -455,6 +539,13 @@ function jumpToSummaryChapter(index, smooth = true) {
   if (node) node.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
 }
 
+function navigateSummaryBySwipe(direction) {
+  if (!el.overlay || el.overlay.hidden) return;
+  const nextChapter = state.summaryChapter + direction;
+  if (nextChapter < 0 || nextChapter >= el.summaryBody.querySelectorAll(".summary-chapter").length) return;
+  jumpToSummaryChapter(nextChapter);
+}
+
 function setSubject(id) {
   if (!SUBJECTS[id] || id === state.subject || state.view === "quiz") return;
   state.subject = id;
@@ -465,7 +556,8 @@ function setSubject(id) {
   if (!el.overlay.hidden) {
     state.summaryChapter = 0;
     renderSummary();
-    jumpToSummaryChapter(0, false);
+    el.summaryBody.scrollTop = 0;
+    searchSummaryWords(el.summarySearch.value);
   }
 }
 
@@ -517,6 +609,33 @@ el.category.addEventListener("change", () => {
   state.category = el.category.value;
   render();
 });
+
+el.summarySearch.addEventListener("input", () => {
+  searchSummaryWords(el.summarySearch.value);
+});
+
+el.summarySearchPrev.addEventListener("click", () => {
+  updateSummarySearchMatch(summarySearchIndex - 1);
+});
+
+el.summarySearchNext.addEventListener("click", () => {
+  updateSummarySearchMatch(summarySearchIndex + 1);
+});
+
+let summaryTouchStart = null;
+el.summaryBody.addEventListener("touchstart", (event) => {
+  if (event.touches.length !== 1) return;
+  summaryTouchStart = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+}, { passive: true });
+
+el.summaryBody.addEventListener("touchend", (event) => {
+  if (!summaryTouchStart || event.changedTouches.length !== 1) return;
+  const deltaX = event.changedTouches[0].clientX - summaryTouchStart.x;
+  const deltaY = event.changedTouches[0].clientY - summaryTouchStart.y;
+  summaryTouchStart = null;
+  if (Math.abs(deltaX) < 60 || Math.abs(deltaX) < Math.abs(deltaY) * 1.25) return;
+  navigateSummaryBySwipe(deltaX < 0 ? 1 : -1);
+}, { passive: true });
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && el.overlay && !el.overlay.hidden) closeSummary();
